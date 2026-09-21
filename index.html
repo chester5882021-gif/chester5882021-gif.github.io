@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>烘焙交響 Baking Symphony</title>
+<meta name="description" content="手作瑪德蓮｜用甜點，奏出生命的另一種可能。訂購、口味菜單、品牌故事與社群，都在這裡。">
+<meta property="og:title" content="烘焙交響 Baking Symphony">
+<meta property="og:description" content="手作瑪德蓮｜用甜點，奏出生命的另一種可能。">
+<meta property="og:image" content="img/og.jpg">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#EBE5E2">
+<link rel="icon" href="img/logo-circle.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF6E9; --linen:#EBE5E2; --rose:#BA9793;
+    --caramel:#663C1B; --ink:#424242; --orange:#F37021; --teal:#1E8289;
+    --line:rgba(102,60,27,.28); --soft:rgba(102,60,27,.62);
+    --serif:"Noto Serif TC","Songti TC",serif; --latin:"Cormorant Garamond",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--serif); color:var(--caramel); background:var(--linen);
+    min-height:100vh; -webkit-font-smoothing:antialiased;
+  }
+  /* 桌機：模糊主視覺當底，名片置中 */
+  .backdrop{position:fixed;inset:0;z-index:-1;background:url(img/hero.webp) center/cover;filter:blur(38px) saturate(.9);transform:scale(1.2);opacity:.55}
+  .backdrop::after{content:"";position:absolute;inset:0;background:rgba(235,229,226,.55)}
+
+  .card{
+    position:relative; width:100%; max-width:440px; margin:0 auto; min-height:100vh;
+    background:linear-gradient(180deg,var(--cream) 0%,var(--cream) 34%,#F7EEE6 62%,#EBDDD8 100%);
+    overflow:hidden;
+  }
+  @media (min-width:520px){
+    body{padding:40px 0}
+    .card{min-height:auto;border-radius:28px;box-shadow:0 30px 80px -30px rgba(102,60,27,.45),0 0 0 1px rgba(102,60,27,.08)}
+  }
+
+  /* 主視覺 */
+  .hero{position:relative;aspect-ratio:1122/1402}
+  .hero img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(255,246,233,0) 72%,rgba(255,246,233,.7) 90%,var(--cream) 100%)}
+
+  /* 拱門卡片 */
+  .arch{
+    position:relative; z-index:2; margin:-64px 22px 0; padding:26px 26px 30px;
+    background:rgba(255,246,233,.94); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    border:1px solid var(--line); border-radius:200px 200px 22px 22px; text-align:center;
+  }
+  .arch::before{ /* 內框細線，做出包裝盒的雙框感 */
+    content:"";position:absolute;inset:7px;border:1px solid rgba(102,60,27,.13);border-radius:193px 193px 16px 16px;pointer-events:none}
+  .logo{width:112px;height:112px;margin:4px auto 0;border-radius:50%;overflow:hidden;background:#000;
+    box-shadow:0 0 0 4px var(--cream),0 0 0 5px var(--line),0 8px 20px -8px rgba(40,24,12,.5)}
+  .logo img{width:100%;height:100%;object-fit:cover;display:block}
+  h1{font-weight:600;font-size:30px;letter-spacing:.32em;margin:18px 0 0 .32em;line-height:1.2}
+  .en{font-family:var(--latin);font-weight:500;font-size:14px;letter-spacing:.38em;margin-top:6px;color:var(--soft)}
+  .rule{display:flex;align-items:center;gap:10px;margin:18px auto 14px;width:78%;color:var(--rose)}
+  .rule::before,.rule::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+  .rule svg{width:14px;height:14px;fill:currentColor}
+  .tagline{font-size:15.5px;letter-spacing:.2em;line-height:1.9}
+  .tagline-en{font-family:var(--latin);font-style:italic;font-size:15.5px;color:var(--soft);margin-top:2px}
+  .chips{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 14px;margin-top:16px;font-size:12.5px;letter-spacing:.14em;color:var(--soft)}
+  .chips span+span::before{content:"·";margin-right:14px;color:var(--rose)}
+  .chips span{color:var(--orange)}
+
+  /* 社群圖示 */
+  .social{display:flex;justify-content:center;gap:14px;margin-top:22px}
+  .social a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+    border:1px solid var(--line);color:var(--caramel);transition:.25s;background:rgba(255,255,255,.35)}
+  .social a:hover,.social a:focus-visible{background:var(--caramel);color:var(--cream);outline:none}
+  .social svg{width:20px;height:20px;fill:currentColor}
+
+  /* 按鈕 */
+  .links{padding:26px 22px 6px;display:grid;gap:12px}
+  .btn{
+    position:relative;display:flex;align-items:center;gap:14px;padding:15px 18px 15px 20px;
+    border:1px solid var(--line);border-radius:14px;background:rgba(255,246,233,.72);
+    color:var(--caramel);text-decoration:none;cursor:pointer;font:inherit;text-align:left;width:100%;
+    transition:transform .25s,box-shadow .25s,background .25s;
+  }
+  .btn:hover,.btn:focus-visible{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(102,60,27,.55);background:var(--cream);outline:none}
+  .btn .ico{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--linen)}
+  .btn .ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .btn b{display:block;font-weight:600;font-size:16px;letter-spacing:.12em}
+  .btn small{display:block;font-size:12px;letter-spacing:.1em;color:var(--soft);margin-top:3px}
+  .btn .arr{margin-left:auto;font-family:var(--latin);font-size:20px;color:var(--rose)}
+  .btn.primary{background:var(--caramel);color:var(--cream);border-color:var(--caramel)}
+  .btn.primary small{color:rgba(255,246,233,.72)}
+  .btn.primary .ico{background:rgba(255,246,233,.14)}
+  .btn.primary .arr{color:rgba(255,246,233,.6)}
+  .btn.primary:hover{background:#5a3417}
+
+  /* 小相簿 */
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:22px 22px 0}
+  .gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;border:1px solid rgba(102,60,27,.12)}
+
+  /* 訂購須知 */
+  .note{margin:22px 22px 0;padding:18px 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    font-size:13px;line-height:2;letter-spacing:.08em;color:var(--ink)}
+  .note dt{font-family:var(--latin);font-style:italic;font-size:15px;color:var(--rose);letter-spacing:.06em}
+  .note dd{display:flex;gap:10px}
+  .note dd::before{content:"♪";color:var(--rose);font-size:11px;line-height:26px}
+
+  footer{text-align:center;padding:26px 22px 34px;font-size:12.5px;letter-spacing:.2em;color:var(--soft)}
+  footer .sig{font-family:var(--latin);font-style:italic;font-size:17px;letter-spacing:.04em;color:var(--caramel);margin-bottom:6px}
+
+  /* 菜單燈箱 */
+  dialog{border:0;padding:0;background:transparent;max-width:min(94vw,620px);max-height:92vh;margin:auto}
+  dialog::backdrop{background:rgba(40,24,12,.72);backdrop-filter:blur(4px)}
+  dialog img{width:100%;height:auto;max-height:86vh;object-fit:contain;border-radius:10px;display:block}
+  dialog button{display:block;margin:12px auto 0;background:var(--cream);color:var(--caramel);border:0;border-radius:99px;
+    padding:9px 26px;font:inherit;font-size:14px;letter-spacing:.2em;cursor:pointer}
+
+  /* 進場 */
+  @media (prefers-reduced-motion:no-preference){
+    .arch,.links .btn,.gallery,.note{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+    .links .btn:nth-child(1){animation-delay:.15s}.links .btn:nth-child(2){animation-delay:.25s}
+    .links .btn:nth-child(3){animation-delay:.35s}.gallery{animation-delay:.45s}.note{animation-delay:.55s}
+    @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  }
+</style>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"></div>
+
+<main class="card">
+  <div class="hero"><img src="img/hero.webp" alt="木桌上一盤撒著杏仁片的法式原味瑪德蓮，旁邊是一杯冰咖啡"></div>
+
+  <section class="arch">
+    <div class="logo"><img src="img/logo-circle.png" alt="烘焙交響 LOGO"></div>
+    <h1>烘焙交響</h1>
+    <p class="en">BAKING SYMPHONY</p>
+
+    <div class="rule" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3v11.3A3.5 3.5 0 1 0 11 17V7.2c2.4.3 4.6 1.4 6 3.3.2-3.9-3.3-6.6-8-7.5z"/></svg></div>
+
+    <p class="tagline">用甜點　奏出生命的另一種可能</p>
+    <p class="tagline-en">Life is sweeter when you find your own rhythm.</p>
+
+    <div class="chips"><span>手作瑪德蓮</span><span>18 款口味</span><span>六入禮盒</span></div>
+
+    <nav class="social" aria-label="社群連結">
+      <a href="https://lihi1.me/XvjMX" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm4.9-8.9a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 2c-2.7 0-3 0-4.1.1C4.3 2.3 2.3 4.3 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.2 3.6 2.2 5.6 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.6-.2 5.6-2.2 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.2-3.6-2.2-5.6-5.8-5.8C15 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C4 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1z"/></svg>
+      </a>
+      <a href="https://lihi1.me/nQHAv" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M13.5 21.9v-7.4H16l.4-2.9h-2.9V9.8c0-.8.2-1.4 1.4-1.4h1.6V5.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.1H8v2.9h2.4v7.4a10 10 0 1 1 3.1 0z"/></svg>
+      </a>
+      <a href="https://lihi1.me/YIs9W" target="_blank" rel="noopener" aria-label="Threads">
+        <svg viewBox="0 0 24 24"><path d="M16.9 11.2l-.3-.1c-.2-3.1-1.9-4.9-4.8-4.9-1.7 0-3.2.7-4.1 2.1l1.6 1.1c.7-1 1.7-1.3 2.5-1.3 1 0 1.8.3 2.2.9.3.5.5 1.1.6 1.8-.9-.2-1.8-.2-2.8-.2-2.8.2-4.6 1.8-4.5 4.1.1 1.2.7 2.2 1.7 2.8.8.5 1.9.8 3 .7 1.5-.1 2.6-.6 3.4-1.7.6-.8 1-1.8 1.1-3.1.7.4 1.2 1 1.5 1.7.5 1.2.5 3.1-1 4.6-1.3 1.3-2.9 1.9-5.3 1.9-2.6 0-4.6-.9-5.9-2.5C4.1 17.6 3.5 15.5 3.4 12.9c0-2.6.7-4.7 1.9-6.2C6.6 5 8.6 4.2 11.2 4.2c2.6 0 4.6.8 5.9 2.5.7.8 1.1 1.8 1.4 2.9l1.9-.5c-.4-1.4-1-2.6-1.8-3.6C17 3.3 14.5 2.3 11.2 2.3 8 2.3 5.5 3.3 3.8 5.4 2.3 7.2 1.5 9.8 1.5 12.9s.8 5.7 2.3 7.5c1.7 2.1 4.2 3.1 7.4 3.2 2.9 0 4.9-.8 6.6-2.4 2.2-2.2 2.1-4.9 1.4-6.6-.5-1.2-1.5-2.2-2.3-2.7zm-5.1 5.4c-1.2.1-2.5-.5-2.5-1.7-.1-.9.6-1.9 2.7-2 .2 0 .5 0 .7 0 .8 0 1.5.1 2.1.2-.2 3-1.6 3.4-3 3.5z"/></svg>
+      </a>
+      <a href="https://lihi1.me/bFZXh" target="_blank" rel="noopener" aria-label="LINE 官方帳號">
+        <svg viewBox="0 0 24 24"><path d="M12 2.5C6.5 2.5 2 6.1 2 10.6c0 4 3.6 7.4 8.4 8 .3.1.8.2.9.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1 .9.5s6-3.5 8.1-6c1.5-1.6 2.2-3.2 2.2-4.9 0-4.4-4.5-8-10-8zM7.9 13.2H5.9c-.3 0-.5-.2-.5-.5V8.8c0-.3.2-.5.5-.5s.5.2.5.5v3.4h1.5c.3 0 .5.2.5.5s-.2.5-.5.5zm2.1-.5c0 .3-.2.5-.5.5s-.5-.2-.5-.5V8.8c0-.3.2-.5.5-.5s.5.2.5.5v3.9zm4.8 0c0 .2-.1.4-.3.5h-.2c-.2 0-.3-.1-.4-.2l-2-2.7v2.4c0 .3-.2.5-.5.5s-.5-.2-.5-.5V8.8c0-.2.1-.4.3-.5h.2c.2 0 .3.1.4.2l2 2.7V8.8c0-.3.2-.5.5-.5s.5.2.5.5v3.9zm3.2-2.5c.3 0 .5.2.5.5s-.2.5-.5.5h-1.5v.9H18c.3 0 .5.2.5.5s-.2.5-.5.5h-2c-.3 0-.5-.2-.5-.5V8.8c0-.3.2-.5.5-.5h2c.3 0 .5.2.5.5s-.2.5-.5.5h-1.5v.9H18z"/></svg>
+      </a>
+    </nav>
+  </section>
+
+  <section class="links">
+    <a class="btn primary" href="https://lihi1.me/bFZXh" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="1.5"/><path d="M3.5 12h17M12 8v12M12 8c-1.5-3.5-5.5-4-5.5-1.5S12 8 12 8zm0 0c1.5-3.5 5.5-4 5.5-1.5S12 8 12 8z"/></svg></span>
+      <span><b>訂一盒瑪德蓮</b><small>透過 LINE 官方帳號</small></span><span class="arr">→</span>
+    </a>
+    <button class="btn" type="button" id="openMenu">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1zM8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span>
+      <span><b>看看 18 款口味</b><small>菜單與價格</small></span><span class="arr">→</span>
+    </button>
+    <a class="btn" href="https://baking-symphony-readable.chester5882021.chatgpt.site/" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5zM12 6.5v13"/></svg></span>
+      <span><b>讀品牌故事</b><small>烘焙交響的六個篇章</small></span><span class="arr">→</span>
+    </a>
+  </section>
+
+  <div class="gallery">
+    <img src="img/g1.webp" alt="兩顆淋上焦糖線條、撒杏仁片的咖啡焦糖瑪德蓮，旁邊是一杯冰茶" loading="lazy">
+    <img src="img/g2.jpg" alt="午後陽光下，一盤檸檬糖霜瑪德蓮與冰茶" loading="lazy">
+  </div>
+
+  <dl class="note">
+    <dt>Notes</dt>
+    <dd>六顆一盒，NT$400 起</dd>
+    <dd>每一顆都含底托獨立包裝</dd>
+    <dd>常溫保存 5 天｜冷凍 15 天</dd>
+    <dd>冷凍退冰：未拆封置於室溫 45–60 分鐘</dd>
+  </dl>
+
+  <footer>
+    <p class="sig">Baking Symphony</p>
+    <p>每一口，都是美好旋律 ♪</p>
+    <p>每一口，都能慢慢找回自己的節奏 ♪</p>
+  </footer>
+</main>
+
+<dialog id="menu">
+  <img src="img/menu.jpg" alt="烘焙交響瑪德蓮菜單：M01 至 M18 共 18 款口味與六入禮盒價格">
+  <button type="button" id="closeMenu">關閉</button>
+</dialog>
+
+<script>
+  const d=document.getElementById('menu');
+  document.getElementById('openMenu').onclick=()=>d.showModal();
+  document.getElementById('closeMenu').onclick=()=>d.close();
+  d.addEventListener('click',e=>{if(e.target===d)d.close()});
+</script>
+</body>
+</html>
