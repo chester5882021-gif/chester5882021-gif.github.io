@@ -14,7 +14,7 @@
 <link rel="icon" href="img/logo-circle.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Noto+Serif+TC:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#FFF6E9; --linen:#EBE5E2; --rose:#BA9793;
@@ -99,12 +99,25 @@
 
   /* 小相簿 */
   .gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:22px 22px 0}
-  .gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;border:1px solid rgba(102,60,27,.12)}
+  .shot{padding:0;border:0;background:none;cursor:zoom-in;border-radius:12px;display:block}
+  .shot:focus-visible{outline:2px solid var(--rose);outline-offset:3px}
+  .gallery img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;border:1px solid rgba(102,60,27,.12);transition:transform .3s,box-shadow .3s}
+  .shot:hover img{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(102,60,27,.55)}
+  /* 照片放大：奶油色卡框＋編號圓章（沿用菜單的 M 編號設計） */
+  #photo{width:min(90vw,420px,calc((100vh - 190px)*.8 + 24px))}
+  #photo .pcard{background:var(--cream);padding:12px 12px 18px;border-radius:14px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+  #photo img{width:100%;height:auto;max-height:none;aspect-ratio:4/5;object-fit:cover;border-radius:6px}
+  #photo .pcap{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:14px;color:var(--caramel)}
+  #photo .pno{flex:none;width:42px;height:42px;border-radius:50%;background:var(--caramel);color:var(--cream);display:grid;place-items:center;
+    font-family:var(--latin);font-size:15px;font-weight:600;font-variant-numeric:lining-nums}
+  #photo .pname{font-size:19px;letter-spacing:.26em;font-weight:600}
+  dialog[open]{animation:pop .35s cubic-bezier(.2,.7,.2,1)}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
 
   /* 訂購須知 */
   .note{margin:22px 22px 0;padding:18px 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
     font-size:13px;line-height:2;letter-spacing:.08em;color:var(--ink)}
-  .note dt{font-family:var(--latin);font-style:italic;font-size:15px;color:var(--rose);letter-spacing:.06em}
+  .note dt{font-family:var(--latin);font-style:italic;font-weight:500;font-size:16px;color:#8A5A4E;letter-spacing:.06em}
   .note dd{display:flex;gap:10px}
   .note dd::before{content:"♪";color:var(--rose);font-size:11px;line-height:26px}
 
@@ -177,8 +190,10 @@
   </section>
 
   <div class="gallery">
-    <img src="img/g1.webp" alt="兩顆淋上焦糖線條、撒杏仁片的咖啡焦糖瑪德蓮，旁邊是一杯冰茶" loading="lazy">
-    <img src="img/g2.jpg" alt="午後陽光下，一盤檸檬糖霜瑪德蓮與冰茶" loading="lazy">
+    <button type="button" class="shot" data-no="M08" data-name="咖啡焦糖麻糬"><img src="img/g1.webp" alt="兩顆淋上焦糖線條、撒杏仁片的咖啡焦糖瑪德蓮，旁邊是一杯冰茶" loading="lazy"></button>
+    <button type="button" class="shot" data-no="M03" data-name="蜂蜜檸檬"><img src="img/g2.jpg" alt="午後陽光下，一盤檸檬糖霜瑪德蓮與冰茶" loading="lazy"></button>
+    <button type="button" class="shot" data-no="M07" data-name="玫瑰蔓越莓"><img src="img/g3.webp" alt="三顆淋上白色與粉色糖霜、點綴玫瑰花瓣的瑪德蓮，旁邊是一杯冰拿鐵" loading="lazy"></button>
+    <button type="button" class="shot" data-no="M04" data-name="抹茶紅豆麻糬"><img src="img/g4.webp" alt="三顆抹茶瑪德蓮，點綴紅豆與核桃，旁邊是一杯冰茶" loading="lazy"></button>
   </div>
 
   <dl class="note">
@@ -198,14 +213,31 @@
 
 <dialog id="menu">
   <img src="img/menu.jpg" alt="烘焙交響瑪德蓮菜單：M01 至 M18 共 18 款口味與六入禮盒價格">
-  <button type="button" id="closeMenu">關閉</button>
+  <button type="button" class="close">關閉</button>
+</dialog>
+
+<dialog id="photo">
+  <div class="pcard">
+    <img src="" alt="">
+    <p class="pcap"><span class="pno"></span><span class="pname"></span></p>
+  </div>
+  <button type="button" class="close">關閉</button>
 </dialog>
 
 <script>
-  const d=document.getElementById('menu');
-  document.getElementById('openMenu').onclick=()=>d.showModal();
-  document.getElementById('closeMenu').onclick=()=>d.close();
-  d.addEventListener('click',e=>{if(e.target===d)d.close()});
+  const menu=document.getElementById('menu'), photo=document.getElementById('photo');
+  document.getElementById('openMenu').onclick=()=>menu.showModal();
+  document.querySelectorAll('.shot').forEach(b=>b.onclick=()=>{
+    const s=b.querySelector('img'), big=photo.querySelector('img');
+    big.src=s.src; big.alt=s.alt;
+    photo.querySelector(".pno").textContent=b.dataset.no;
+    photo.querySelector(".pname").textContent=b.dataset.name;
+    photo.showModal();
+  });
+  document.querySelectorAll('dialog').forEach(d=>{
+    d.querySelector('.close').onclick=()=>d.close();
+    d.addEventListener('click',e=>{if(e.target===d)d.close()});
+  });
 </script>
 </body>
 </html>
