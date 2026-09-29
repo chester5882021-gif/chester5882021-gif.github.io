@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>烘焙交響｜手作瑪德蓮</title>
+<meta name="description" content="從晶圓 Recipe，到蛋糕 Recipe。烘焙交響的手作瑪德蓮，18 款口味、六入禮盒，透過 LINE 訂購。">
+<meta property="og:title" content="烘焙交響｜手作瑪德蓮">
+<meta property="og:description" content="用甜點，奏出生命的另一種可能。18 款口味、六入禮盒，透過 LINE 訂購。">
+<meta property="og:image" content="https://chester5882021-gif.github.io/symphony/img/og.jpg">
+<meta property="og:url" content="https://chester5882021-gif.github.io/symphony/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#16100C">
+<link rel="icon" href="../img/logo-circle.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 字型網址與數位名片完全相同：從名片點過來的人，字型已在快取裡 -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* 與數位名片同一套色票 */
+    --cream:#FFF6E9; --linen:#EBE5E2; --rose:#BA9793;
+    --caramel:#663C1B; --ink:#424242; --orange:#F37021; --teal:#1E8289;
+    --line:rgba(102,60,27,.28); --soft:rgba(102,60,27,.62);
+    /* 夜色段落：焦糖色壓到最暗，不另起新色 */
+    --night:#16100C; --dusk:#2B1D14; --paper:#EFE2CF; --paper-soft:rgba(239,226,207,.6);
+    --gold:rgba(214,176,120,.32); --teal-lit:#5DB3B7;
+    --serif:"Noto Serif TC","Songti TC",serif; --latin:"Cormorant Garamond",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{font-family:var(--serif);background:var(--night);color:var(--paper);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit}
+
+  section{position:relative;padding:96px 24px}
+  .col{max-width:540px;margin:0 auto}
+  .mv{font-family:var(--latin);font-style:italic;font-size:15px;letter-spacing:.2em;color:var(--rose);margin-bottom:14px}
+  h2{font-weight:600;font-size:clamp(26px,6.4vw,34px);line-height:1.5;letter-spacing:.12em}
+  p{font-size:17px;line-height:2.05;letter-spacing:.06em}
+  p+p{margin-top:1.1em}
+  .o{color:var(--orange)}
+  .t{text-decoration:underline;text-decoration-color:var(--teal-lit);text-decoration-thickness:1.5px;text-underline-offset:.35em}
+  .light .t{text-decoration-color:var(--teal)}
+  blockquote{margin:28px 0;font-size:21px;line-height:1.9;letter-spacing:.1em}
+
+  /* ── 開場：一盞燈 ── */
+  .hero{position:relative;min-height:100svh;display:grid;place-items:center;text-align:center;padding:80px 24px;overflow:hidden}
+  .hero::before{content:"";position:absolute;left:50%;top:38%;width:130vmax;height:130vmax;transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(243,178,98,.2) 0%,rgba(243,178,98,.07) 22%,transparent 50%);pointer-events:none}
+  .logo{width:76px;height:76px;margin:0 auto 34px;border-radius:50%;overflow:hidden;background:#000;box-shadow:0 0 0 1px var(--gold),0 0 40px rgba(243,178,98,.25)}
+  .logo img{width:100%;height:100%;object-fit:cover}
+  .eyebrow{font-family:var(--latin);font-size:13px;letter-spacing:.5em;color:var(--paper-soft);margin-bottom:22px}
+  .hero h1{font-weight:600;font-size:clamp(26px,7vw,40px);line-height:1.7;letter-spacing:.2em}
+  .hero .en{font-family:var(--latin);font-style:italic;font-size:17px;color:var(--paper-soft);margin-top:16px}
+  .cue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);font-size:12.5px;letter-spacing:.4em;color:var(--paper-soft);text-align:center}
+  .cue::after{content:"";display:block;width:1px;height:42px;margin:12px auto 0;background:linear-gradient(var(--paper-soft),transparent)}
+
+  /* ── 共鳴 ── */
+  .echo{padding-top:40px;text-align:center}
+  .echo .big{font-size:clamp(20px,5vw,24px);line-height:2;letter-spacing:.1em}
+  .echo .turn{margin-top:56px;font-size:19px}
+
+  /* ── 故事 ── */
+  .story{background:linear-gradient(var(--night),var(--dusk) 70%)}
+  .portrait{margin:36px auto 40px;width:min(100%,380px)}
+  .portrait img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:200px 200px 10px 10px;filter:sepia(.18) brightness(.92)}
+  .story blockquote{text-align:center;color:#F5D9B0}
+  figure.hands{margin:44px auto;width:min(100%,420px)}
+  figure.hands img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px}
+  figcaption{font-size:14px;letter-spacing:.14em;color:var(--paper-soft);text-align:center;margin-top:14px}
+  .more{display:inline-block;margin-top:32px;font-size:15px;letter-spacing:.16em;color:var(--paper-soft);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:4px}
+  .more:hover{color:var(--paper)}
+
+  /* ── 名字：由夜轉亮 ── */
+  /* 文字全部落在暗段；轉亮留給文字下方那段留白去完成 */
+  .name{padding:120px 24px 240px;text-align:center;color:var(--paper);
+    background:linear-gradient(var(--dusk) 0%,#3F2A1D 45%,#5C4030 68%,#B79683 86%,var(--cream) 100%)}
+  .name::before{content:"";position:absolute;inset:0;background:url(img/mold.webp) center/cover;opacity:.13;mix-blend-mode:screen;
+    -webkit-mask:linear-gradient(transparent,#000 25%,#000 55%,transparent 85%);mask:linear-gradient(transparent,#000 25%,#000 55%,transparent 85%)}
+  .name .col{position:relative}
+  .staff{width:120px;height:26px;margin:0 auto 26px;background:repeating-linear-gradient(transparent 0 4px,var(--gold) 4px 5px)}
+  .name p{font-size:18px}
+
+  /* ── 亮色段落 ── */
+  .light{background:var(--cream);color:var(--caramel)}
+  .light .mv{color:#A07A6F}
+  .light p{color:#5A3A22}
+  .linen{background:var(--linen)}
+
+  /* 公仔：從這裡開始出場 */
+  .mascot{position:relative;display:flex;align-items:flex-end;gap:10px;margin:0 0 20px}
+  .mascot img{width:104px;height:auto;filter:drop-shadow(0 10px 10px rgba(102,60,27,.22))}
+  .bubble{position:relative;margin-bottom:58px;padding:10px 16px;background:#fff;border:1px solid var(--line);border-radius:16px 16px 16px 4px;
+    font-size:14.5px;letter-spacing:.1em;color:var(--caramel);white-space:nowrap}
+  .mascot.right{flex-direction:row-reverse}
+  .mascot.right .bubble{border-radius:16px 16px 4px 16px}
+
+  /* 口味卡 */
+  .flavors{display:grid;gap:26px;margin:40px auto 0;max-width:980px}
+  @media (min-width:820px){.flavors{grid-template-columns:repeat(3,1fr)}}
+  .fl{background:#fff;border:1px solid rgba(102,60,27,.12);border-radius:16px;overflow:hidden}
+  .fl img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .fl div{padding:20px 22px 24px}
+  .fl .no{font-family:var(--latin);font-size:14px;letter-spacing:.2em;color:#A07A6F}
+  .fl h3{font-weight:600;font-size:21px;letter-spacing:.2em;color:var(--orange);margin:2px 0 10px}
+  .fl p{font-size:15.5px;line-height:1.95}
+  .fl .q{margin-top:10px;color:var(--caramel)}
+  .menu-row{max-width:540px;margin:34px auto 0;text-align:center}
+  .price{font-size:14.5px;letter-spacing:.14em;color:var(--soft);margin-top:12px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 28px;border-radius:99px;
+    border:1px solid var(--caramel);background:transparent;color:var(--caramel);font:inherit;font-size:16px;letter-spacing:.16em;
+    text-decoration:none;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+  .btn:hover,.btn:focus-visible{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(102,60,27,.6);outline:none}
+  .btn.primary{background:var(--caramel);color:var(--cream)}
+  .btn.primary:hover{background:#5a3417}
+  .btn .arr{font-family:var(--latin);font-size:20px;opacity:.7}
+
+  /* 禮盒 */
+  .box-img{margin:32px 0 0;border-radius:14px;overflow:hidden}
+  .box-img img{width:100%;aspect-ratio:5/4;object-fit:cover}
+  .gift blockquote{color:var(--caramel);text-align:center}
+  ul.notes{list-style:none;margin:30px 0 0;display:grid;gap:10px}
+  ul.notes li{display:flex;gap:12px;font-size:16px;line-height:1.9;letter-spacing:.06em;color:#5A3A22}
+  ul.notes li::before{content:"♪";color:var(--rose);font-size:13px;line-height:30px}
+  /* 兩張底托照並排：直接看得到「每一顆都有底托」 */
+  .trays{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:30px}
+  .trays img{width:100%;aspect-ratio:5/4;object-fit:cover;border-radius:12px}
+  .care{margin-top:36px}
+  h3.sub{font-weight:600;font-size:18px;letter-spacing:.2em;color:var(--caramel);margin:0 0 10px}
+  dl.care-list{font-size:15px;line-height:1.9;letter-spacing:.05em;color:#5A3A22}
+  dl.care-list dt{font-family:var(--latin);font-style:italic;font-size:16px;color:#8A5A4E;margin-top:10px}
+  dl.care-list dt:first-child{margin-top:0}
+
+  /* 訂購步驟 */
+  ol.steps{list-style:none;counter-reset:s;margin-top:30px;display:grid;gap:14px}
+  ol.steps li{counter-increment:s;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;
+    padding:18px 20px;background:#fff;border:1px solid rgba(102,60,27,.12);border-radius:14px;font-size:16px;line-height:1.85;letter-spacing:.05em;color:#5A3A22}
+  ol.steps li::before{content:counter(s);width:40px;height:40px;border-radius:50%;background:var(--caramel);color:var(--cream);
+    display:grid;place-items:center;font-family:var(--latin);font-size:19px;font-weight:600}
+  ol.steps b{color:var(--caramel);font-weight:600}
+  details{margin-top:22px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;padding:16px 4px;font-size:15.5px;letter-spacing:.18em;color:var(--caramel);list-style:none;display:flex;justify-content:space-between}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"＋";color:var(--rose)}
+  details[open] summary::after{content:"－"}
+  details ul{padding:0 4px 18px}
+
+  /* 收尾 */
+  .finale{text-align:center;background:linear-gradient(var(--cream),#F3E3D6);padding-bottom:70px;color:var(--caramel)}
+  .finale p{color:#5A3A22}
+  .finale .mv{color:#A07A6F}
+  .finale .mascot{justify-content:center}
+  .finale blockquote{font-size:clamp(21px,5.4vw,26px);margin:10px 0 6px;color:var(--caramel)}
+  .ctas{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:38px}
+  .social{display:flex;justify-content:center;gap:14px;margin-top:34px}
+  .social a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);color:var(--caramel);transition:.25s}
+  .social a:hover,.social a:focus-visible{background:var(--caramel);color:var(--cream);outline:none}
+  .social svg{width:19px;height:19px;fill:currentColor}
+  footer{text-align:center;padding:30px 24px 110px;background:#F3E3D6;color:var(--soft);font-size:12.5px;letter-spacing:.2em}
+  footer .sig{font-family:var(--latin);font-style:italic;font-size:18px;letter-spacing:.04em;color:var(--caramel);margin-bottom:6px}
+
+  /* 浮動訂購鈕：產品段之後才出現 */
+  .float{position:fixed;left:0;right:0;margin:0 auto;width:max-content;bottom:calc(16px + env(safe-area-inset-bottom));z-index:10;
+    transform:translateY(calc(100% + 40px));box-shadow:0 14px 30px -12px rgba(40,24,12,.55);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+  .float.on{transform:none}
+  .float.on:hover{transform:translateY(-2px)}
+
+  /* 菜單燈箱（沿用名片的菜單圖） */
+  dialog{border:0;padding:0;background:transparent;max-width:min(94vw,620px);max-height:92vh;margin:auto}
+  dialog::backdrop{background:rgba(40,24,12,.75);backdrop-filter:blur(4px)}
+  dialog img{width:100%;height:auto;max-height:84vh;object-fit:contain;border-radius:10px}
+  dialog .close{display:block;margin:12px auto 0;background:var(--cream);color:var(--caramel);border:0;border-radius:99px;padding:9px 26px;font:inherit;font-size:14px;letter-spacing:.2em;cursor:pointer}
+
+  /* 捲動淡入：只有 JS 在時才先藏起來 */
+  @media (prefers-reduced-motion:no-preference){
+    .js .rv{opacity:0;transform:translateY(18px);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.7,.2,1)}
+    .js .rv.in{opacity:1;transform:none}
+    .cue::after{animation:drip 2.4s ease-in-out infinite}
+    @keyframes drip{0%,100%{opacity:.3;transform:scaleY(.6);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+  }
+  @media (min-width:900px){ section{padding:130px 24px} p{font-size:18px} }
+</style>
+</head>
+<body>
+
+<!-- 1. 開場：只有一盞燈，還沒有甜點 -->
+<header class="hero">
+  <div class="rv">
+    <div class="logo"><img src="../img/logo-circle.png" alt="烘焙交響 LOGO"></div>
+    <p class="eyebrow">BAKING SYMPHONY</p>
+    <h1>用甜點<br>奏出生命的另一種可能</h1>
+    <p class="en">Life is sweeter when you find your own rhythm.</p>
+  </div>
+  <p class="cue" aria-hidden="true">往下，慢慢來</p>
+</header>
+
+<main>
+<!-- 2. 共鳴 -->
+<section class="echo">
+  <div class="col">
+    <p class="big rv">有些人，走著走著，<br>開始覺得世界對不起自己。</p>
+    <p class="rv">這不是矯情，<br>是疲憊的身心真的撐太久了。</p>
+    <p class="turn rv">不是你不夠努力，<br>是那盞燈<span class="t">已經燒了很久</span>。</p>
+  </div>
+</section>
+
+<!-- 3. 品牌故事 -->
+<section class="story">
+  <div class="col">
+    <p class="mv rv">Movement I　轉場</p>
+    <h2 class="rv">從晶圓 Recipe，<br>到蛋糕 Recipe。</h2>
+    <div class="portrait rv"><img src="img/chester.webp" alt="烘焙交響創辦人 Chester，穿著圍裙的黑白肖像" loading="lazy" width="720" height="799"></div>
+    <p class="rv">在半導體業的十幾年，我是那種把自己逼得很緊的人。每一項製程參數，都不允許誤差。</p>
+    <p class="rv">直到某天，看著名片上的頭銜，腦中突然閃過一個念頭：</p>
+    <blockquote class="rv">「這是我要的嗎？」</blockquote>
+    <p class="rv">離開那天沒有豪言壯語，默默訂了外送請大家吃飯。隔沒多久，我拾起了烘焙用的攪拌棒。</p>
+    <figure class="hands rv">
+      <img src="img/hands.webp" alt="戴著黑色手套的手，從烤模裡拿起一顆剛出爐的瑪德蓮" loading="lazy" width="800" height="1000">
+      <figcaption>同一雙手，只是從鍵盤換到了打蛋器。</figcaption>
+    </figure>
+    <p class="rv">那個嚴謹、在乎每一個細節的人，或許沒有消失，只是換了一個舞台。</p>
+    <p class="rv">朋友問我：「這樣值得嗎？」<br>我說：「這是我親手為自己打造的光環，不是別人給的，也不是某個職稱短期借我的。」</p>
+    <a class="more rv" href="https://baking-symphony-readable.chester5882021.chatgpt.site/" target="_blank" rel="noopener">讀完整的品牌故事 →</a>
+  </div>
+</section>
+
+<!-- 4. 名字的由來：頁面在這裡由夜轉亮 -->
+<section class="name">
+  <div class="col">
+    <div class="staff rv" aria-hidden="true"></div>
+    <p class="mv rv" style="color:var(--paper-soft)">Movement II　名字</p>
+    <h2 class="rv">為什麼叫《烘焙交響》</h2>
+    <p class="rv" style="margin-top:28px">生命像一首交響樂，<br>有高潮，有靜止，<br>有你以為<span class="t">彈錯的音階</span>。</p>
+    <p class="rv">後來才發現，<br>那段才是整首曲子<br>最有層次、最具爆發力的地方。</p>
+  </div>
+</section>
+
+<!-- 5. 瑪德蓮登場，公仔開始帶路 -->
+<section class="light" id="madeleine">
+  <div class="col">
+    <div class="mascot rv"><img src="img/mascot-M43.webp" alt="瑪德蓮寶寶雙手捧著一枚貝殼" loading="lazy" width="305" height="420"><span class="bubble">接下來，換我帶路。</span></div>
+    <p class="mv rv">Movement III　瑪德蓮</p>
+    <h2 class="rv">一顆，四十克。</h2>
+    <p class="rv" style="margin-top:20px">小小一顆，剛好一口的大小。<br>不用切、不用準備，拆開就能吃。</p>
+    <p class="rv">目前有 <span class="o">18 款口味</span>，從法式原味、果香，到台灣的茶。先介紹其中三款：</p>
+  </div>
+  <div class="flavors">
+    <article class="fl rv">
+      <img src="img/f-plain.webp" alt="午後木桌上，陶盤裡兩顆鋪滿烤杏仁片的法式原味瑪德蓮，旁邊是一杯冰咖啡" loading="lazy" width="720" height="900">
+      <div><p class="no">M01</p><h3>法式原味</h3>
+        <p>法國進口奶油、蛋香，和剛好的甜度。表面微脆帶一點焦香，凸肚上鋪一層烤杏仁片。</p>
+        <p class="q">越是純粹，越考驗細節。</p></div>
+    </article>
+    <article class="fl rv">
+      <img src="img/f-lemon.webp" alt="陽光下的陶盤裡，兩顆刷著檸檬糖霜、點綴檸檬乾與檸檬皮絲的蜂蜜檸檬瑪德蓮" loading="lazy" width="720" height="900">
+      <div><p class="no">M03</p><h3>蜂蜜檸檬</h3>
+        <p>新鮮檸檬屑揉進麵糊，貝殼面刷一層薄薄的檸檬糖霜，再放上檸檬乾。</p>
+        <p class="q">酸酸甜甜，最後留著一點蜂蜜香。</p></div>
+    </article>
+    <article class="fl rv">
+      <img src="img/f-cocoa.webp" alt="陶盤上兩顆可可瑪德蓮，其中一顆放著一片糖漬柳橙" loading="lazy" width="720" height="900">
+      <div><p class="no">M05</p><h3>橙香可可</h3>
+        <p>可可蛋糕裡藏著糖漬橙皮丁，外層是黑巧克力和一片柳橙乾。</p>
+        <p class="q">巧克力不太苦，橙皮的香氣把整顆提亮。</p></div>
+    </article>
+  </div>
+  <div class="menu-row rv">
+    <button class="btn" type="button" id="openMenu">看全部 18 款口味<span class="arr">→</span></button>
+    <p class="price">六入禮盒 NT$400 起</p>
+  </div>
+</section>
+
+<!-- 6. 禮盒與收到之後 -->
+<section class="light linen gift">
+  <div class="col">
+    <div class="mascot right rv"><img src="img/mascot-M13.webp" alt="瑪德蓮寶寶害羞地捧著一個綁緞帶的小禮盒" loading="lazy" width="305" height="420"><span class="bubble">送自己也可以喔。</span></div>
+    <p class="mv rv">Movement IV　禮盒</p>
+    <h2 class="rv">打開盒子的那一刻</h2>
+    <div class="box-img rv"><img src="img/box.webp" alt="木桌上兩盒烘焙交響的長形金色禮盒，繫著金色綁繩、掛著品牌吊牌，貼著 THANK YOU 封條" loading="lazy" width="1000" height="800"></div>
+    <p class="rv" style="margin-top:28px">我希望你感覺到的，不只是蛋糕的香氣，而是有人輕輕說了一句：</p>
+    <blockquote class="rv">「你已經很努力了，<br>可以讓自己慢下來一下。」</blockquote>
+    <ul class="notes rv">
+      <li>一盒 6 顆，同一種口味</li>
+      <li>每一顆都獨立包裝，附底托</li>
+      <li>隨盒附一張插圖明信片，上面那句話，就是這一次的《今日樂章》</li>
+      <li>兩盒以上，每兩盒附一個品牌提袋</li>
+    </ul>
+    <div class="trays rv">
+      <img src="img/tray-cocoa.webp" alt="一整盤可可瑪德蓮，每一顆都放在透明底托裡，頂端點綴沾了巧克力的糖漬橙片" loading="lazy" width="800" height="640">
+      <img src="img/tray-citrus.webp" alt="一整盤金黃色的瑪德蓮，每一顆都放在透明底托裡，頂端點綴一片糖漬柑橘片" loading="lazy" width="800" height="640">
+    </div>
+    <div class="care rv">
+      <div>
+        <h3 class="sub">收到之後</h3>
+        <dl class="care-list">
+          <dt>Keep</dt><dd>常溫 5 天（密封 3 天內風味最好）<br>冷藏 7 天｜冷凍 15 天</dd>
+          <dt>Warm up</dt><dd>烤箱 150–160°C，3–5 分鐘<br>氣炸鍋 150°C，約 3 分鐘</dd>
+          <dt>Thaw</dt><dd>冷凍的不拆袋，室溫放 45–60 分鐘</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. 怎麼訂 -->
+<section class="light" id="order">
+  <div class="col">
+    <div class="mascot rv"><img src="img/mascot-M33.webp" alt="瑪德蓮寶寶拿著訂單板和筆，正在勾選" loading="lazy" width="305" height="420"><span class="bubble">我幫你記下來！</span></div>
+    <p class="mv rv">Movement V　訂購</p>
+    <h2 class="rv">三個步驟</h2>
+    <ol class="steps rv">
+      <li><span><b>加入 LINE 官方帳號</b>，取得訂購表單。</span></li>
+      <li><span><b>填完表單</b>，會收到金額與匯款資訊。48 小時內完成匯款，訂單就成立。</span></li>
+      <li><span><b>每週固定 2–3 天手作出貨</b>，照訂單順序，最慢兩週內寄出。</span></li>
+    </ol>
+    <details class="rv">
+      <summary>訂購須知</summary>
+      <ul class="notes">
+        <li>一律低溫寄送，可選宅配或 7-11 取貨</li>
+        <li>運費 NT$180，單筆滿 NT$2,500 免運</li>
+        <li>出貨日無法指定；需要指定日期，請提早半個月告知</li>
+        <li>每一盒都是按單備料手作，排入製作後就無法取消或退費，還請見諒</li>
+        <li>全系列含小麥、蛋、堅果（杏仁）、乳製品；部分口味另含芝麻、酒精或其他堅果，下單前歡迎先問我</li>
+        <li>個人工作室，目前不開立發票</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<!-- 8. 收尾 -->
+<section class="finale">
+  <div class="col">
+    <div class="mascot rv"><img src="img/mascot-M21.webp" alt="瑪德蓮寶寶一手揮手、一手舉著瑪德蓮" loading="lazy" width="305" height="420"><span class="bubble">下次見！</span></div>
+    <p class="mv rv">今日樂章</p>
+    <blockquote class="rv">陪伴，<br>是《烘焙交響》的主旋律。</blockquote>
+    <p class="rv">從第一天到現在，始終如一。</p>
+    <div class="ctas rv">
+      <a class="btn primary" href="https://lihi1.me/bFZXh" target="_blank" rel="noopener">用 LINE 訂一盒<span class="arr">→</span></a>
+      <a class="btn" href="../">回到數位名片</a>
+    </div>
+    <nav class="social rv" aria-label="社群連結">
+      <a href="https://lihi1.me/XvjMX" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm4.9-8.9a1.1 1.1 0 1 0 0 2.2 1.1 1.1 0 0 0 0-2.2zM12 2c-2.7 0-3 0-4.1.1C4.3 2.3 2.3 4.3 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.2 3.6 2.2 5.6 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.6-.2 5.6-2.2 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.2-3.6-2.2-5.6-5.8-5.8C15 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2.7.1 4 1.4 4.1 4.1.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.7-1.4 4-4.1 4.1-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.7-.1-4-1.4-4.1-4.1-.1-1-.1-1.3-.1-4s0-3 .1-4C4 5.3 5.3 4 8 3.9c1-.1 1.3-.1 4-.1z"/></svg></a>
+      <a href="https://lihi1.me/nQHAv" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21.9v-7.4H16l.4-2.9h-2.9V9.8c0-.8.2-1.4 1.4-1.4h1.6V5.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.1H8v2.9h2.4v7.4a10 10 0 1 1 3.1 0z"/></svg></a>
+      <a href="https://lihi1.me/YIs9W" target="_blank" rel="noopener" aria-label="Threads"><svg viewBox="0 0 24 24"><path d="M16.9 11.2l-.3-.1c-.2-3.1-1.9-4.9-4.8-4.9-1.7 0-3.2.7-4.1 2.1l1.6 1.1c.7-1 1.7-1.3 2.5-1.3 1 0 1.8.3 2.2.9.3.5.5 1.1.6 1.8-.9-.2-1.8-.2-2.8-.2-2.8.2-4.6 1.8-4.5 4.1.1 1.2.7 2.2 1.7 2.8.8.5 1.9.8 3 .7 1.5-.1 2.6-.6 3.4-1.7.6-.8 1-1.8 1.1-3.1.7.4 1.2 1 1.5 1.7.5 1.2.5 3.1-1 4.6-1.3 1.3-2.9 1.9-5.3 1.9-2.6 0-4.6-.9-5.9-2.5C4.1 17.6 3.5 15.5 3.4 12.9c0-2.6.7-4.7 1.9-6.2C6.6 5 8.6 4.2 11.2 4.2c2.6 0 4.6.8 5.9 2.5.7.8 1.1 1.8 1.4 2.9l1.9-.5c-.4-1.4-1-2.6-1.8-3.6C17 3.3 14.5 2.3 11.2 2.3 8 2.3 5.5 3.3 3.8 5.4 2.3 7.2 1.5 9.8 1.5 12.9s.8 5.7 2.3 7.5c1.7 2.1 4.2 3.1 7.4 3.2 2.9 0 4.9-.8 6.6-2.4 2.2-2.2 2.1-4.9 1.4-6.6-.5-1.2-1.5-2.2-2.3-2.7zm-5.1 5.4c-1.2.1-2.5-.5-2.5-1.7-.1-.9.6-1.9 2.7-2 .2 0 .5 0 .7 0 .8 0 1.5.1 2.1.2-.2 3-1.6 3.4-3 3.5z"/></svg></a>
+      <a href="https://lihi1.me/bFZXh" target="_blank" rel="noopener" aria-label="LINE 官方帳號"><svg viewBox="0 0 24 24"><path d="M12 2.5C6.5 2.5 2 6.1 2 10.6c0 4 3.6 7.4 8.4 8 .3.1.8.2.9.5.1.3.1.7 0 1l-.1.8c0 .3-.2 1 .9.5s6-3.5 8.1-6c1.5-1.6 2.2-3.2 2.2-4.9 0-4.4-4.5-8-10-8zM7.9 13.2H5.9c-.3 0-.5-.2-.5-.5V8.8c0-.3.2-.5.5-.5s.5.2.5.5v3.4h1.5c.3 0 .5.2.5.5s-.2.5-.5.5zm2.1-.5c0 .3-.2.5-.5.5s-.5-.2-.5-.5V8.8c0-.3.2-.5.5-.5s.5.2.5.5v3.9zm4.8 0c0 .2-.1.4-.3.5h-.2c-.2 0-.3-.1-.4-.2l-2-2.7v2.4c0 .3-.2.5-.5.5s-.5-.2-.5-.5V8.8c0-.2.1-.4.3-.5h.2c.2 0 .3.1.4.2l2 2.7V8.8c0-.3.2-.5.5-.5s.5.2.5.5v3.9zm3.2-2.5c.3 0 .5.2.5.5s-.2.5-.5.5h-1.5v.9H18c.3 0 .5.2.5.5s-.2.5-.5.5h-2c-.3 0-.5-.2-.5-.5V8.8c0-.3.2-.5.5-.5h2c.3 0 .5.2.5.5s-.2.5-.5.5h-1.5v.9H18z"/></svg></a>
+    </nav>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p class="sig">A New Chapter, A Sweeter You.</p>
+  <p>烘焙交響 Baking Symphony</p>
+</footer>
+
+<a class="btn primary float" id="float" href="https://lihi1.me/bFZXh" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">用 LINE 訂一盒<span class="arr">→</span></a>
+
+<dialog id="menu">
+  <img data-src="../img/menu.jpg" alt="烘焙交響瑪德蓮菜單：M01 至 M18 共 18 款口味與六入禮盒價格">
+  <button type="button" class="close">關閉</button>
+</dialog>
+
+<script>
+  document.documentElement.classList.add('js');
+  // 捲動淡入
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  // 浮動訂購鈕：看過產品段才出現，到收尾段（已有正式按鈕）就收起
+  const fl=document.getElementById('float'), prod=document.getElementById('madeleine'), fin=document.querySelector('.finale');
+  const tick=()=>{
+    const past=prod.getBoundingClientRect().top<innerHeight*.35, atEnd=fin.getBoundingClientRect().top<innerHeight*.9;
+    const on=past&&!atEnd; fl.classList.toggle('on',on); fl.setAttribute('aria-hidden',!on); fl.tabIndex=on?0:-1;
+  };
+  addEventListener('scroll',tick,{passive:true}); tick();
+  // 菜單燈箱：點了才載入
+  const menu=document.getElementById('menu');
+  document.getElementById('openMenu').onclick=()=>{const m=menu.querySelector('img'); if(!m.src) m.src=m.dataset.src; menu.showModal();};
+  menu.querySelector('.close').onclick=()=>menu.close();
+  menu.addEventListener('click',e=>{if(e.target===menu)menu.close()});
+</script>
+</body>
+</html>
