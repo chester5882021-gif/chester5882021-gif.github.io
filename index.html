@@ -77,25 +77,58 @@
   .social a:hover,.social a:focus-visible{background:var(--caramel);color:var(--cream);outline:none}
   .social svg{width:20px;height:20px;fill:currentColor}
 
-  /* 按鈕 */
-  .links{padding:26px 22px 6px;display:grid;gap:12px}
+  /* 按鈕：每顆有自己的底色＋立體浮動
+     浮動走 translate、傾斜走 transform，兩條分開，才不會互相蓋掉 */
+  .links{padding:26px 22px 18px;display:grid;gap:18px}
   .btn{
-    position:relative;display:flex;align-items:center;gap:14px;padding:15px 18px 15px 20px;
-    border:1px solid var(--line);border-radius:14px;background:rgba(255,246,233,.72);
-    color:var(--caramel);text-decoration:none;cursor:pointer;font:inherit;text-align:left;width:100%;
-    transition:transform .25s,box-shadow .25s,background .25s;
+    --rx:0deg; --ry:0deg; --s:1; --mx:50%; --my:50%;
+    position:relative;display:flex;align-items:center;gap:14px;padding:16px 18px 16px 20px;
+    border:1px solid rgba(255,255,255,.28);border-radius:16px;
+    background:
+      radial-gradient(160px circle at var(--mx) var(--my),rgba(255,255,255,var(--spot,0)),transparent 70%),
+      linear-gradient(155deg,var(--b1),var(--b2));
+    color:var(--fg);text-decoration:none;cursor:pointer;font:inherit;text-align:left;width:100%;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.32),
+      inset 0 -2px 0 rgba(0,0,0,.07),
+      0 1px 2px rgba(60,30,10,.14),
+      0 14px 26px -14px var(--glow);
+    transform:perspective(700px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+    -webkit-tap-highlight-color:transparent;
   }
-  .btn:hover,.btn:focus-visible{transform:translateY(-2px);box-shadow:0 10px 24px -14px rgba(102,60,27,.55);background:var(--cream);outline:none}
-  .btn .ico{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--linen)}
+  /* 地面陰影：按鈕往上飄時，影子縮小變淡 */
+  .btn::after{content:"";position:absolute;left:12%;right:12%;bottom:-18px;height:12px;border-radius:50%;
+    background:radial-gradient(closest-side,var(--glow),transparent);opacity:.55;pointer-events:none}
+  .btn:hover,.btn:focus-visible{--s:1.015;--spot:.16;outline:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -2px 0 rgba(0,0,0,.07),0 2px 4px rgba(60,30,10,.12),0 22px 34px -16px var(--glow)}
+  .btn:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+  .btn:active{--s:.975;transition-duration:.12s}
+  .btn .ico{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+    background:var(--ib);color:var(--ifg);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 3px 8px -4px rgba(0,0,0,.25)}
   .btn .ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
   .btn b{display:block;font-weight:600;font-size:16px;letter-spacing:.12em}
-  .btn small{display:block;font-size:12px;letter-spacing:.1em;color:var(--soft);margin-top:3px}
-  .btn .arr{margin-left:auto;font-family:var(--latin);font-size:20px;color:var(--rose)}
-  .btn.primary{background:var(--caramel);color:var(--cream);border-color:var(--caramel)}
-  .btn.primary small{color:rgba(255,246,233,.72)}
-  .btn.primary .ico{background:rgba(255,246,233,.14)}
-  .btn.primary .arr{color:rgba(255,246,233,.6)}
-  .btn.primary:hover{background:#5a3417}
+  .btn small{display:block;font-size:12px;letter-spacing:.1em;color:var(--sub);margin-top:3px}
+  .btn .arr{margin-left:auto;font-family:var(--latin);font-size:20px;color:var(--arr);transition:translate .3s}
+  .btn:hover .arr{translate:4px 0}
+
+  /* ── 方案 A：四顆實色（焦糖／湖水綠／玫瑰褐／燒橙） ── */
+  .btn{--fg:var(--cream);--sub:rgba(255,246,233,.75);--arr:rgba(255,246,233,.6);--ib:rgba(255,246,233,.16);--ifg:var(--cream)}
+  .b1{--b1:#7A4A25;--b2:#5A3316;--glow:rgba(90,51,22,.75)}
+  .b2{--b1:#2A939A;--b2:#18696F;--glow:rgba(24,105,111,.7)}
+  .b3{--b1:#A87A70;--b2:#875A50;--glow:rgba(135,90,80,.7)}
+  .b4{--b1:#C46A2C;--b2:#A3521C;--glow:rgba(163,82,28,.7)}
+
+  /* ── 方案 B：主按鈕實色，其餘三顆柔色底＋實色圖示 ── */
+  .soft .b2,.soft .b3,.soft .b4{--fg:var(--caramel);--sub:var(--soft);--ifg:var(--cream);border-color:rgba(102,60,27,.14)}
+  .soft .b2{--b1:#E3F0EE;--b2:#CFE4E2;--ib:#1E8289;--arr:#1E8289;--glow:rgba(30,130,137,.45)}
+  .soft .b3{--b1:#F4E6E2;--b2:#EAD4CE;--ib:#9C6A61;--arr:#9C6A61;--glow:rgba(156,106,97,.45)}
+  .soft .b4{--b1:#FCEBDD;--b2:#F6D9C2;--ib:#C46A2C;--arr:#C46A2C;--glow:rgba(196,106,44,.45)}
+
+  /* 主按鈕：每隔幾秒一道光掃過 */
+  .b1 .sheen{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none}
+  .b1 .sheen::before{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;
+    background:linear-gradient(100deg,transparent,rgba(255,246,233,.22),transparent);transform:skewX(-18deg)}
 
   /* 小相簿 */
   .gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:22px 22px 0}
@@ -133,14 +166,27 @@
 
   /* 進場 */
   @media (prefers-reduced-motion:no-preference){
-    .arch,.links .btn,.gallery,.note{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
-    .links .btn:nth-child(1){animation-delay:.15s}.links .btn:nth-child(2){animation-delay:.25s}
-    .links .btn:nth-child(3){animation-delay:.35s}.links .btn:nth-child(4){animation-delay:.42s}.gallery{animation-delay:.45s}.note{animation-delay:.55s}
+    .arch,.gallery,.note{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+    .gallery{animation-delay:.45s}.note{animation-delay:.55s}
     @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+    /* 按鈕進場用 translate 從下方浮上來；之後接著慢慢上下漂（每顆相位錯開，不會整排一起跳） */
+    .links .btn{animation:btnIn .9s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:var(--d)}
+    .links .btn::after{animation:none}
+    .b1{--d:.15s;--p:0s}.b2{--d:.25s;--p:-1.3s}.b3{--d:.35s;--p:-2.6s}.b4{--d:.42s;--p:-3.9s}
+    .float .links .btn{animation:btnIn .9s cubic-bezier(.2,.7,.2,1) backwards,bob 5.2s ease-in-out infinite;
+      animation-delay:var(--d),var(--p)}
+    .float .links .btn::after{animation:shade 5.2s ease-in-out infinite;animation-delay:var(--p)}
+    .b1 .sheen::before{animation:sheen 6.5s ease-in-out 1.6s infinite}
+    @keyframes btnIn{from{opacity:0;translate:0 18px}}
+    @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -5px}}
+    @keyframes shade{0%,100%{transform:none;opacity:.55}50%{transform:translateY(5px) scaleX(.82);opacity:.3}}
+    @keyframes sheen{0%,72%{left:-60%}100%{left:130%}}
   }
+
 </style>
 </head>
-<body>
+<body class="soft float">
 <div class="backdrop" aria-hidden="true"></div>
 
 <main class="card">
@@ -175,19 +221,20 @@
   </section>
 
   <section class="links">
-    <a class="btn primary" href="https://lihi1.me/bFZXh" target="_blank" rel="noopener">
+    <a class="btn b1" href="https://lihi1.me/bFZXh" target="_blank" rel="noopener">
+      <span class="sheen" aria-hidden="true"></span>
       <span class="ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="1.5"/><path d="M3.5 12h17M12 8v12M12 8c-1.5-3.5-5.5-4-5.5-1.5S12 8 12 8zm0 0c1.5-3.5 5.5-4 5.5-1.5S12 8 12 8z"/></svg></span>
       <span><b>訂一盒瑪德蓮</b><small>透過 LINE 官方帳號</small></span><span class="arr">→</span>
     </a>
-    <a class="btn" href="symphony/">
+    <a class="btn b2" href="symphony/">
       <span class="ico"><svg viewBox="0 0 24 24"><path d="M9 18V6.5l10-2V16M9 18a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zm10-2a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zM9 10l10-2"/></svg></span>
       <span><b>走進烘焙交響</b><small>從故事到一盒瑪德蓮</small></span><span class="arr">→</span>
     </a>
-    <button class="btn" type="button" id="openMenu">
+    <button class="btn b3" type="button" id="openMenu">
       <span class="ico"><svg viewBox="0 0 24 24"><path d="M6 3.5h12a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1zM8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span>
       <span><b>看看 18 款口味</b><small>菜單與價格</small></span><span class="arr">→</span>
     </button>
-    <a class="btn" href="https://baking-symphony-readable.chester5882021.chatgpt.site/" target="_blank" rel="noopener">
+    <a class="btn b4" href="https://baking-symphony-readable.chester5882021.chatgpt.site/" target="_blank" rel="noopener">
       <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5zM12 6.5v13"/></svg></span>
       <span><b>讀品牌故事</b><small>烘焙交響的六個篇章</small></span><span class="arr">→</span>
     </a>
@@ -248,6 +295,20 @@
     d.querySelector('.close').onclick=()=>d.close();
     d.addEventListener('click',e=>{if(e.target===d)d.close()});
   });
+
+  // 桌機滑鼠：按鈕跟著游標微微傾斜，光點跟著走（手機不跑，省電）
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    document.querySelectorAll('.links .btn').forEach(b=>{
+      b.addEventListener('pointermove',e=>{
+        const r=b.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+        b.style.setProperty('--rx',((.5-y)*9).toFixed(2)+'deg');
+        b.style.setProperty('--ry',((x-.5)*7).toFixed(2)+'deg');
+        b.style.setProperty('--mx',(x*100).toFixed(1)+'%');
+        b.style.setProperty('--my',(y*100).toFixed(1)+'%');
+      });
+      b.addEventListener('pointerleave',()=>['--rx','--ry','--mx','--my'].forEach(k=>b.style.removeProperty(k)));
+    });
+  }
 </script>
 </body>
 </html>
