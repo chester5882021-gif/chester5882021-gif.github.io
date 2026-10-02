@@ -35,11 +35,10 @@
   .card{
     position:relative; width:100%; max-width:440px; margin:0 auto; min-height:100vh;
     background:linear-gradient(180deg,var(--cream) 0%,var(--cream) 34%,#F7EEE6 62%,#EBDDD8 100%);
-    overflow:hidden;
   }
   @media (min-width:520px){
     body{padding:40px 0}
-    .card{min-height:auto;border-radius:28px;box-shadow:0 30px 80px -30px rgba(102,60,27,.45),0 0 0 1px rgba(102,60,27,.08)}
+    .card{overflow:hidden;min-height:auto;border-radius:28px;box-shadow:0 30px 80px -30px rgba(102,60,27,.45),0 0 0 1px rgba(102,60,27,.08)}
   }
 
   /* 主視覺 */
@@ -93,7 +92,7 @@
       inset 0 -2px 0 rgba(0,0,0,.07),
       0 1px 2px rgba(60,30,10,.14),
       0 14px 26px -14px var(--glow);
-    transform:perspective(700px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+    transform:scale(var(--s));
     transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
     -webkit-tap-highlight-color:transparent;
   }
@@ -104,6 +103,10 @@
     box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -2px 0 rgba(0,0,0,.07),0 2px 4px rgba(60,30,10,.12),0 22px 34px -16px var(--glow)}
   .btn:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
   .btn:active{--s:.975;transition-duration:.12s}
+  /* 3D 傾斜只給桌機滑鼠；手機的 WebKit 遇到 3D＋overflow 裁切＋持續動畫，會整顆圖層掉畫面 */
+  @media (hover:hover) and (pointer:fine){
+    .btn{transform:perspective(700px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s))}
+  }
   .btn .ico{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
     background:var(--ib);color:var(--ifg);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 3px 8px -4px rgba(0,0,0,.25)}
   .btn .ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
@@ -178,7 +181,9 @@
       animation-delay:var(--d),var(--p)}
     .float .links .btn::after{animation:shade 5.2s ease-in-out infinite;animation-delay:var(--p)}
     .b1 .sheen::before{animation:sheen 6.5s ease-in-out 1.6s infinite}
-    @keyframes btnIn{from{opacity:0;translate:0 18px}}
+    @keyframes btnIn{from{translate:0 18px}}
+    .links{animation:fadeIn .7s ease-out .1s backwards}
+    @keyframes fadeIn{from{opacity:0}}
     @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -5px}}
     @keyframes shade{0%,100%{transform:none;opacity:.55}50%{transform:translateY(5px) scaleX(.82);opacity:.3}}
     @keyframes sheen{0%,72%{left:-60%}100%{left:130%}}
