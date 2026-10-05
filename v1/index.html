@@ -137,8 +137,19 @@
   .pcard{position:relative;border:1px solid var(--caramel);padding:40px 34px 44px;background:var(--cream)}
   .pcard .no{font:500 46px/1 var(--latin);color:var(--caramel);margin-bottom:26px;display:flex;align-items:center;gap:14px}
   .pcard .no::after{content:"";width:10px;height:10px;background:var(--apricot)}
-  .pcard h3{margin-bottom:16px}
+  .pcard h3{margin-bottom:16px;font-size:20px;color:var(--navy)}
   .pcard p{font-family:var(--serif);font-weight:600;font-size:16px;line-height:2.15;letter-spacing:.08em;color:var(--cocoa);opacity:.88}
+  /* 痛點卡「亮起」：手機捲到畫面中央那張、桌機滑鼠移上去那張，底色換成首屏的深海藍、字反白 */
+  .pcard,.js .pcard.rv{transition:opacity 1s ease,transform 1s var(--ease),background-color .45s ease,border-color .45s ease,box-shadow .45s ease}
+  .pcard .no,.pcard h3,.pcard p{transition:color .45s ease}
+  .pcard.on{background:var(--navy);border-color:var(--navy);box-shadow:0 26px 50px -30px rgba(5,53,76,.75)}
+  .pcard.on .no,.pcard.on h3{color:var(--cream)}
+  .pcard.on p{color:var(--cream);opacity:.9}
+  @media (hover:hover) and (pointer:fine){
+    .pcard:hover{background:var(--navy);border-color:var(--navy);box-shadow:0 26px 50px -30px rgba(5,53,76,.75)}
+    .pcard:hover .no,.pcard:hover h3{color:var(--cream)}
+    .pcard:hover p{color:var(--cream);opacity:.9}
+  }
   .bridge{margin:84px auto 0;text-align:center;font:600 clamp(18px,1.9vw,22px)/2.1 var(--serif);letter-spacing:.1em}
   .bridge .first{display:block;font-size:.8em;color:var(--caramel);margin-bottom:10px}
 
@@ -895,6 +906,16 @@ new IntersectionObserver(([e]) => {
 new IntersectionObserver(([e]) => { finalIn = e.isIntersecting; upd(); }, { threshold: 0.05 }).observe(final);
 const onScroll = () => nav.classList.toggle('solid', scrollY > window.innerHeight * 0.35);
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+// ── 痛點卡：手機上捲到畫面中央的那張亮起（一次只亮一張；捲到卡片之間的空隙時維持上一張） ──
+const pcards = [...document.querySelectorAll('.pcard')], mobile = matchMedia('(max-width:900px)');
+if ('IntersectionObserver' in window) {
+  const pio = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && mobile.matches) pcards.forEach(c => c.classList.toggle('on', c === e.target));
+  }), { rootMargin: '-42% 0px -42% 0px' });
+  pcards.forEach(c => pio.observe(c));
+  if (mobile.addEventListener) mobile.addEventListener('change', () => { if (!mobile.matches) pcards.forEach(c => c.classList.remove('on')); });
+}
 
 // ── 進場動畫：不支援就全部直接顯示；支援的話，載入 3 秒後也一律補顯示，避免 App 內建瀏覽器卡在透明 ──
 const rvs = document.querySelectorAll('.rv'), showAll = () => rvs.forEach(el => el.classList.add('in'));
