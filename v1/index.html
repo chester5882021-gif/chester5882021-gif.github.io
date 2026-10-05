@@ -105,7 +105,7 @@
   .scroll-btn:hover{background:var(--navy);color:var(--cream)}
   .scroll-btn svg{width:18px;height:18px}
   .h-inset{position:absolute;right:calc(var(--strip) - min(9vw,130px));top:54%;width:min(17vw,250px);z-index:3}
-  .h-inset img{aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+  .h-inset img{aspect-ratio:4/5;object-fit:cover;width:100%;height:auto;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
   .h-inset .sq{width:38%;aspect-ratio:1;right:-14%;top:-11%;z-index:-1}
   .h-inset figcaption{margin-top:12px;font:italic 500 14px/1.4 var(--latin);letter-spacing:.08em;color:var(--cream-60);text-align:right}
   .h-copy{position:relative;z-index:2;width:max(46%,calc(36% + 120px));background:var(--navy);padding:52px 52px 44px var(--gut);margin-bottom:40px}
@@ -230,13 +230,12 @@
   .pt p{font-size:15.5px;line-height:2.05}
   .maker{display:grid;grid-template-columns:repeat(12,1fr);align-items:end;margin-top:110px;padding-bottom:120px}
   .maker-photo{grid-column:1/6;position:relative}
-  .maker-photo img{width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:50% 30%}
+  .maker-photo img{width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:50% 40%}
   .maker-photo .sq{width:38%;aspect-ratio:1;right:-22px;bottom:-22px;z-index:-1}
   .maker-text{grid-column:7/13;padding-bottom:10px}
   .maker-text h3{font-size:clamp(22px,2.4vw,30px);margin-bottom:26px;line-height:1.5}
   .maker-text p:not(.kicker){font:600 16.5px/2.2 var(--serif);letter-spacing:.08em;color:var(--berry)}
   .maker-text p:not(.kicker) + p{margin-top:22px;font:400 15.5px/2.05 var(--sans);letter-spacing:.04em}
-  .maker-text .sig{margin-top:30px;font:italic 500 22px/1 var(--latin);color:var(--wine);letter-spacing:.06em}
 
   /* ───────── 7. 寫給這幾種人 ───────── */
   .who{background:var(--almond);color:var(--berry);padding:0 0 130px}
@@ -353,7 +352,10 @@
     .hero{min-height:0;display:block}
     .h-photo{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:4/4.6;max-height:66svh}
     .h-photo::after{background:linear-gradient(180deg,rgba(5,53,76,.6),rgba(5,53,76,0) 30%,rgba(5,53,76,0) 70%,rgba(5,53,76,.5))}
-    .h-strip,.h-inset,.ghost{display:none}
+    .h-strip,.ghost{display:none}
+    .h-inset{right:0;top:calc(min(115vw,66svh) - 26vw);width:30vw}
+    .h-inset figcaption{display:none}
+    .h-inset .sq{width:34%;right:auto;left:-14%;top:-10%}
     .h-copy{width:auto;margin:-84px 16px 0 0;padding:30px 20px 30px 20px}
     .h-photo img{object-position:50% 60%}
     .h-copy .eyebrow-m{display:block;font-size:12.5px;line-height:1.7;letter-spacing:.12em;color:var(--apricot);margin-bottom:14px}
@@ -371,10 +373,9 @@
     .pain .sq{width:56px;height:56px;top:-28px}
     .sec-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:34px}
     .sec-head .alt{text-align:left}
-    .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:0 20px 8px;scrollbar-width:none}
-    .cards::-webkit-scrollbar{display:none}
-    .pcard{flex:0 0 82%;scroll-snap-align:center;padding:32px 26px 34px}
-    .swipe{display:flex!important}
+    .cards{grid-template-columns:1fr;gap:14px}
+    .pcard{padding:30px 24px 32px}
+    .pcard .no{font-size:38px;margin-bottom:18px}
     .bridge{margin-top:56px;font-size:17px;text-align:left}
 
     .sol-grid{display:block}
@@ -454,7 +455,6 @@
     .sol-photo img,.trio img,.maker-photo img,.when-photos img,.h-inset img{height:auto}
     @media (max-width:900px){.h-photo{height:110vw;max-height:66vh}}
   }
-  .swipe{display:none;align-items:center;gap:8px;margin-top:14px;font:italic 500 14px/1 var(--latin);color:var(--caramel);letter-spacing:.1em}
 </style>
 </head>
 <body>
@@ -563,7 +563,6 @@
         <p>關燈之後，手機又滑了二十分鐘。<br>看了些什麼，其實一點都記不得，<br>只記得今天還沒真正結束，<br>明天已經在排隊了。</p>
       </article>
     </div>
-    <p class="swipe" aria-hidden="true">swipe →</p>
 
     <p class="bridge rv"><span class="first">這三個畫面，你可能是其中一個，也可能三個都是。</span>你把每個人都安排好了，<br>行程表上卻一直沒有自己的位置。</p>
   </div>
@@ -673,14 +672,13 @@
     <div class="maker">
       <div class="maker-photo">
         <span class="sq"></span>
-        <img src="img/chester.webp" alt="穿著圍裙、手拿打蛋器的主理人 Chester" loading="lazy">
+        <img src="img/chester.webp" alt="穿著圍裙、倚著布幕的主理人 Chester" loading="lazy">
       </div>
       <div class="maker-text rv d1">
         <p class="kicker">The hands behind it</p>
         <h3>做這一顆的人</h3>
         <p>手作的人是 Chester。<br>曾在半導體業工作十餘年，<br>離開之後拾起攪拌棒，<br>把工程師的細心，放進每一次秤量與出爐。</p>
         <p>全系列使用履歷雞蛋與國產鮮奶，<br>每一單按單備料，手作完成。</p>
-        <p class="sig">— Chester</p>
       </div>
     </div>
   </div>
