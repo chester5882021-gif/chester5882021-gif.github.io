@@ -821,7 +821,7 @@
 // ── Hero D 的照片只在 ?v=d 時才載入 ──
 if (document.documentElement.classList.contains("vd")) { const d = document.querySelector(".h-photo .hd"); d.src = d.dataset.src; }
 
-// ── 訂購表單網址：拿到 Google 表單網址後只改這一行，全頁的「訂購表單」按鈕都會換過去 ──
+// ── 訂購表單網址：刻意留空。Chester 2026-10-06 決定所有按鈕（含「訂購表單」）一律連官方 LINE，讓受眾都進私域；表單在 LINE 裡發。除非他改口，不要填 ──
 const FORM_URL = '';
 if (FORM_URL) document.querySelectorAll('[data-form]').forEach(a => a.href = FORM_URL);
 
