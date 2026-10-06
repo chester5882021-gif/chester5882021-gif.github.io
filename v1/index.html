@@ -164,12 +164,12 @@
   .badge10{position:absolute;left:-46px;bottom:-46px;width:132px;height:132px;background:var(--apricot);color:var(--navy);display:flex;flex-direction:column;justify-content:center;align-items:center}
   .badge10 b{font:500 60px/1 var(--latin)}
   .badge10 small{font:italic 500 15px/1 var(--latin);letter-spacing:.14em;margin-top:4px}
-  .turn{position:relative;margin-top:-140px;padding:230px 0 130px;background:var(--navy);color:var(--cream);text-align:center;overflow:hidden}
+  .turn{position:relative;margin-top:-140px;padding:230px 0 130px;background:var(--navy);color:var(--cream);text-align:center}
   .turn .kicker{justify-content:center}
   .turn .kicker::before{content:"";width:44px;height:1px;background:currentColor;opacity:.55}
   .turn p:not(.kicker){font:600 clamp(24px,3.2vw,40px)/1.85 var(--serif);letter-spacing:.12em}
   .turn p:not(.kicker) em{font-style:normal;background:linear-gradient(var(--apricot),var(--apricot)) 0 90%/100% 3px no-repeat}
-  .turn .sq{width:64px;height:64px;left:var(--gut);bottom:0}
+  .turn .sq{width:64px;height:64px;right:max(32px,var(--gut));bottom:-32px;z-index:2}
   .steps{padding:110px 0 40px}
   .steps ol{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
   .steps li{padding:40px 36px 10px 0;position:relative}
@@ -203,7 +203,7 @@
 
   /* ───────── 5. 口味選擇器 ───────── */
   .flv{background:var(--linen);padding:120px 0 110px;position:relative}
-  .flv .sq{width:56px;height:56px;left:0;top:0}
+  .flv .sq{width:56px;height:56px;right:max(32px,var(--gut));top:-28px;z-index:2}
   .tabs{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line);margin-bottom:38px}
   .tabs::-webkit-scrollbar{display:none}
   .tab{display:flex;align-items:baseline;gap:14px;text-align:left;padding:20px 22px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font:600 15.5px/1.5 var(--serif);letter-spacing:.06em;color:var(--berry);position:relative;transition:color .25s,background .25s}
@@ -231,6 +231,7 @@
 
   /* ───────── 6. 核心賣點＋信任帶（暖莓款） ───────── */
   .why{background:var(--almond);color:var(--berry);padding:130px 0 0;position:relative}
+  .why>.sq{width:56px;height:56px;left:var(--gut);top:-28px;z-index:2}
   .why h2,.why h3{color:var(--wine)}
   .why .kicker{color:var(--berry)}
   .pts{display:grid;grid-template-columns:repeat(3,1fr);margin-top:56px;border-top:1px solid var(--berry-line)}
@@ -242,7 +243,7 @@
   .maker{display:grid;grid-template-columns:repeat(12,1fr);align-items:end;margin-top:110px;padding-bottom:120px}
   .maker-photo{grid-column:1/6;position:relative}
   .maker-photo img{width:100%;aspect-ratio:4/4.6;object-fit:cover;object-position:50% 40%}
-  .maker-photo .sq{width:38%;aspect-ratio:1;right:-22px;bottom:-22px;z-index:-1}
+  .maker-photo .sq{width:clamp(56px,16%,96px);aspect-ratio:1;right:-22px;bottom:-22px;z-index:1}
   .maker-text{grid-column:7/13;padding-bottom:10px}
   .maker-text h3{font-size:clamp(22px,2.4vw,30px);margin-bottom:26px;line-height:1.5}
   .maker-text p:not(.kicker){font:600 16.5px/2.2 var(--serif);letter-spacing:.08em;color:var(--berry)}
@@ -265,6 +266,7 @@
   /* ───────── 8. 使用時機 ───────── */
   .when{background:var(--cream);padding:130px 0 120px;position:relative;overflow:hidden}
   .when-grid{display:grid;grid-template-columns:6fr 5fr;gap:80px;align-items:start}
+  .when h2 .ul{background:linear-gradient(var(--apricot),var(--apricot)) 0 100%/100% 3px no-repeat;padding-bottom:8px}
   .when ol{list-style:none;margin-top:44px;counter-reset:w}
   .when li{display:grid;grid-template-columns:56px 1fr;padding:18px 0;border-bottom:1px solid var(--line-soft);counter-increment:w}
   .when li::before{content:counter(w,decimal-leading-zero);font:500 22px/1.5 var(--latin);color:var(--caramel)}
@@ -295,7 +297,7 @@
   summary:hover{color:var(--caramel)}
 
   /* ───────── 10. 頁尾 CTA ───────── */
-  .final{position:relative;background:var(--navy);color:var(--cream);overflow:hidden}
+  .final{position:relative;background:var(--navy);color:var(--cream)}
   .final-grid{display:grid;grid-template-columns:repeat(12,1fr);min-height:760px}
   .final-photo{grid-column:7/13;grid-row:1;position:relative}
   .final-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -311,7 +313,7 @@
   .path .btn{width:100%}
   .path small{display:block;margin-top:14px;font-size:13px;line-height:1.8;color:var(--cream-60)}
   .final .fine{margin-top:26px;font-size:13px;line-height:1.9;letter-spacing:.06em;color:var(--cream-60);max-width:760px}
-  .final .sq{width:72px;height:72px;left:var(--gut);top:0;z-index:3}
+  .final .sq{width:72px;height:72px;left:var(--gut);top:-36px;z-index:3}
   .rest{background:var(--navy);color:var(--cream);text-align:center;padding:110px 20px 80px;border-top:1px solid var(--cream-line)}
   .rest p{font:600 clamp(20px,2.4vw,28px)/1.8 var(--serif);letter-spacing:.18em}
   .rest .dot{width:6px;height:6px;border-radius:50%;background:var(--apricot);margin:26px auto 0}
@@ -425,6 +427,7 @@
     .pt,.pt + .pt{padding:30px 0 26px;border-left:0;border-bottom:1px solid var(--berry-line)}
     .maker{display:block;margin-top:70px;padding-bottom:90px}
     .maker-photo{width:88%}
+    .maker-photo .sq{right:-16px;bottom:-16px}
     .maker-text{margin-top:52px}
 
     .who{padding-bottom:90px}
@@ -446,13 +449,15 @@
     details .a{padding:0 0 24px 44px;font-size:15px}
 
     .final-grid{display:block;min-height:0}
-    .final-photo{height:58vw;min-height:260px}
-    .final-photo::after{background:linear-gradient(0deg,var(--navy),rgba(5,53,76,0) 50%)}
+    /* 手機：照片取景往下移（看到盤子與兩顆可可瑪德蓮的全貌），漸層只留最底下一小段 */
+    .final-photo{height:66vw;min-height:280px}
+    .final-photo img{object-position:50% 72%}
+    .final-photo::after{background:linear-gradient(0deg,var(--navy),rgba(5,53,76,0) 22%)}
     .final-body{padding:10px 20px 80px}
     .paths{grid-template-columns:1fr}
     .path + .path{border-left:0;border-top:1px solid var(--cream-line)}
     .path{padding:26px 22px}
-    .final .sq{width:48px;height:48px;left:20px}
+    .final .sq{width:52px;height:52px;left:20px;top:-26px}
     .rest{padding:80px 20px 60px}
     footer{padding:0 20px 130px;flex-direction:column;align-items:flex-start}
 
@@ -671,6 +676,7 @@
 
 <!-- ═══ 6. 核心賣點＋做這一顆的人 ═══ -->
 <section class="why" aria-labelledby="why-h">
+  <span class="sq"></span>
   <div class="wrap">
     <p class="kicker rv"><span class="no">05</span>Why this one</p>
     <h2 id="why-h" class="rv">這一顆瑪德蓮，<br>和別的甜點不太一樣。</h2>
@@ -728,7 +734,7 @@
   <div class="wrap when-grid">
     <div>
       <p class="kicker rv"><span class="no">07</span>Moments</p>
-      <h2 id="when-h" class="rv">這些時候，可以拆一顆。</h2>
+      <h2 id="when-h" class="rv"><span class="ul">這些時候，可以拆一顆</span>。</h2>
       <ol>
         <li class="rv"><div><b>下班回家的第一個十分鐘</b><span>包包還沒放下，先拆一顆。可以選咖啡焦糖麻糬。</span></div></li>
         <li class="rv"><div><b>週日晚上，明天還沒開始之前</b><span>把週末最後一段時間留給自己。可以選觀音甘納許。</span></div></li>
