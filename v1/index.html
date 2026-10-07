@@ -18,6 +18,8 @@
 <!-- 字型網址與名片、/symphony/ 完全相同（共用快取） -->
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Noto+Serif+TC:wght@600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
+<!-- 五線譜與音符背景（V1／V2 共用，參數在檔案開頭的 THEMES） -->
+<script src="../shared/music-bg.js" data-music-bg="v1" defer></script>
 <script>
   // ?v=d 切換成 Hero D（口味身份進場）；要在畫面出來前決定，避免閃一下
   if (new URLSearchParams(location.search).get('v') === 'd') document.documentElement.classList.add('vd');
