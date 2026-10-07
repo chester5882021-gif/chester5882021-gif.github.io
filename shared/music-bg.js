@@ -76,6 +76,83 @@
         push: { radius: 110, dist: 12 },
       },
     },
+
+    // ═══ V2「轉場故事型」：米白底、拱形與圓。配色 2026-10-07 Chester 拍板：
+    //     淺底＝煙燻粉藕譜線＋深可可音符（少數粉藕）；深可可底＝暖奶油譜線，才夾蜜杏橘音符（淺底不放橘，避免和 31 顆橘圓點混在一起）
+    v2: {
+      // Hero C（預設）：五線譜沿著拱形肖像的輪廓走——左側直線往上、繞過拱頂、右側往下，碰到文字就淡出
+      arch: {
+        section: '.hero-c',
+        frame: '.hc-fig img',                    // 沿著這張拱形照片的輪廓
+        avoid: ['.hc-head', '.hc-body', '.nav', '.trustrow'], // 碰到這些（文字、導覽列）就淡出
+        covers: ['.hc-fig .bg', '.hc-fig img', '.stamp', '.o-h1'], // 會蓋住譜線的東西：音符不放在它們底下
+        offset: [22, 22, 14],                    // 最內側那條線離照片邊緣多遠（px）
+        gap: [10, 10, 7],
+        side: [0.7, 0.7, 0.7],                   // 兩側直線往下延伸多長（佔照片直線段的比例）
+        line: '186,151,147', lineAlpha: 0.8,     // 煙燻粉藕
+        notes: ['66,20,7', '186,151,147'], accent: 0.3, noteAlpha: 0.88, // 深可可，少數粉藕
+        count: [9, 8, 5],
+        drawIn: 2.2, noteGap: 0.14, float: [1.5, 3],
+        push: { radius: 110, dist: 12 },
+        ripple: { radius: 140, kick: 220 },
+      },
+      // Hero B（?v=b）：照 V1 的做法——譜線只畫在右邊照片上，鑽到大標與半透明字卡後面，經過瑪德蓮時讓位
+      heroB: {
+        section: '.hero-b',
+        after: '.hb-photo',
+        hide: ['.hb h1', '.glass', '.hb .eyebrow'],
+        clipBox: '.hb-photo',                    // 線只畫在照片框裡
+        subject: { '.hb-photo img': [0.505, 0.71, 0.21, 0.14] },
+        band: [0.16, 0.8],
+        stacked: '(max-width: 900px)',
+        bandMobile: ['.hb-photo', 0.14, 90],
+        staffs: [3, 3, 2],
+        gap: [11, 10, 8],
+        line: '255,240,220',
+        shade: ['66,20,7', 0.7],                 // 深可可細陰影：照片亮處也讀得到
+        lineAlpha: [0.34, 0.26, 0.2],
+        lineWidth: 1,
+        notes: ['255,246,233', '231,214,207'], accent: 0.3, noteAlpha: 0.78,
+        count: [12, 10, 7],
+        sparks: [5, 4, 3],
+        float: [4, 8],
+        drawIn: 1.6,
+        noteGap: 0.12,
+        parallax: [0.08, 0.14],
+        push: { radius: 120, dist: 16 },
+        ripple: { radius: 150, kick: 240 },
+      },
+      spots: {
+        // [區塊, 從哪一側伸出, 長度, 音符數, 選項]——左右刻意和區塊交界上的橘圓點錯開（圓點在哪一側，譜線就放另一側）
+        list: [
+          ['.pain', 'left', 0.5, 4],
+          ['.sol', 'right', 0.44, 3],
+          ['.story', 'right', 0.46, 4],          // 深可可底
+          // 名字的由來：把卡片底部原本那條靜態譜線換成會動的（JS 沒跑時原本那條還在）
+          // at：對齊原本那條靜態譜線的下半部（往上就碰到內文）；flat：幾乎不起伏；pitch：只用低音區，符桿不伸進文字
+          ['.origin', 'full', 1, 5, { el: '.staff', mode: 'center', at: 0.78, hide: '.staff', pal: 'onRose', gap: 8, flat: true, pitch: [-1, 2], notesAt: [0.56, 0.86] }],
+          ['.flv', 'left', 0.48, 4],
+          ['.why', 'right', 0.42, 3],
+          ['.when', 'left', 0.46, 4],
+          ['.rest', 'right', 0.44, 3],           // 深可可底
+        ],
+        stacked: '(max-width: 900px)',
+        lenMobile: 0.78,
+        notesMobile: 3,
+        gap: [10, 10, 8],
+        height: [150, 150, 120],
+        // 粉藕本身偏淺，在杏仁底上對比低：線加粗一點、透明度給足
+        light: { line: '186,151,147', lineAlpha: 0.95, lineWidth: 1.25, notes: ['66,20,7', '186,151,147'], noteAlpha: 0.85 },
+        dark: { line: '243,224,190', lineAlpha: 0.36, notes: ['250,236,210', '250,174,98'], noteAlpha: 0.85 },
+        onRose: { line: '255,246,233', lineAlpha: 0.6, notes: ['255,246,233', '66,20,7'], noteAlpha: 0.9 }, // 粉藕卡片上
+        accent: 0.3,
+        drawIn: 1.0,
+        popGap: 0.16,
+        hop: [6, 11],
+        float: [2, 4],
+        push: { radius: 110, dist: 12 },
+      },
+    },
   };
 
   const me = document.currentScript;
@@ -195,7 +272,7 @@
   // ───────── 首屏舞台 ─────────
   function Hero(C) {
     const sec = document.querySelector(C.section), anchor = sec && sec.querySelector(C.after);
-    if (!sec || !anchor) return null;
+    if (!sec || !anchor || !sec.getClientRects().length) return null; // 這個首屏沒顯示（另一個 ?v= 版本）就不建
     const cv = makeCanvas('position:absolute;left:0;top:0;width:100%;height:100%');
     const ctx = cv.getContext('2d');
     if (!ctx) return null;
@@ -203,11 +280,12 @@
 
     let W = 0, H = 0, dpr = 1, tier = 2, top = 0, step = 24, grad = null, gradS = null, sp = [], spS = null, start = -1, clipY = 0;
     let subj = null, hole = null; // 主體橢圓（首屏座標）與淡出用的徑向漸層
+    let box = [0, 0, 0, 0];       // 可以畫的範圍 [左, 上, 右, 下]
     let staffs = [], notes = [], sparks = [], holes = [];
     const ripples = [];
 
     function hidden(x, y) {
-      if (y < 84 || y > clipY - 24) return true;
+      if (y < 84 || y > clipY - 24 || x < box[0] + 16 || x > box[2] - 16 || y > box[3] - 16) return true;
       if (subj) { const u = (x - subj[0]) / subj[2], v = (y - subj[1]) / subj[3]; if (u * u + v * v < 1.15) return true; }
       for (const r of holes) if (x > r[0] - 12 && x < r[2] + 12 && y > r[1] - 12 && y < r[3] + 12) return true;
       return false;
@@ -220,6 +298,7 @@
       if (same) { // 手機網址列伸縮造成的小幅高度變化：只更新裁切線，不重排音符
         const ce = C.clipTo && sec.querySelector(C.clipTo);
         clipY = ce ? ce.getBoundingClientRect().top - R.top : h;
+        if (!C.clipBox) box[3] = clipY;
       }
       top = R.top + scrollY;
       if (same && !force) return;
@@ -227,19 +306,23 @@
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       sp = C.notes.map(c => sprites(c, dpr));
       spS = C.shade ? sprites(C.shade[0], dpr) : null;
-      const edge = rgb => {
-        const gr = ctx.createLinearGradient(0, 0, W, 0);
+      const edge = (rgb, b) => {
+        const gr = ctx.createLinearGradient(b[0], 0, b[2], 0);
         gr.addColorStop(0, `rgba(${rgb},0)`); gr.addColorStop(0.06, `rgba(${rgb},1)`);
         gr.addColorStop(0.94, `rgba(${rgb},1)`); gr.addColorStop(1, `rgba(${rgb},0)`);
         return gr;
       };
-      grad = edge(C.line);
-      gradS = C.shade ? edge(C.shade[0]) : null;
 
       holes = C.hide.map(q => sec.querySelector(q)).filter(Boolean).map(el => el.getBoundingClientRect())
         .filter(r => r.width > 0 && r.height > 0).map(r => [r.left - R.left, r.top - R.top, r.right - R.left, r.bottom - R.top]);
       const ce = C.clipTo && sec.querySelector(C.clipTo);
       clipY = ce ? ce.getBoundingClientRect().top - R.top : H;
+      // 只畫在某個框裡（例如只畫在照片上，不畫到旁邊的大標題底下）
+      const be = C.clipBox && sec.querySelector(C.clipBox);
+      if (be) { const r = be.getBoundingClientRect(); box = [r.left - R.left, r.top - R.top, r.right - R.left, Math.min(r.bottom - R.top, clipY)]; }
+      else box = [0, 0, W, clipY];
+      grad = edge(C.line, box);
+      gradS = C.shade ? edge(C.shade[0], box) : null;
 
       // 主體位置：依 object-fit:cover 與 object-position 換算成首屏座標
       subj = null;
@@ -329,7 +412,7 @@
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, cv.width, cv.height);
       ctx.save();
-      ctx.beginPath(); ctx.rect(0, 0, cv.width, clipY * dpr); ctx.clip();
+      ctx.beginPath(); ctx.rect(box[0] * dpr, box[1] * dpr, (box[2] - box[0]) * dpr, (box[3] - box[1]) * dpr); ctx.clip();
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.lineWidth = C.lineWidth;
@@ -404,6 +487,161 @@
     return { sec, cv, layout, frame };
   }
 
+  // ───────── 拱形譜線（V2 Hero C）：沿著拱形照片的輪廓走——左側直線往上、繞過拱頂、右側往下；碰到文字就淡出 ─────────
+  function Arch(C) {
+    const sec = document.querySelector(C.section), pic = sec && sec.querySelector(C.frame);
+    if (!sec || !pic || !sec.getClientRects().length) return null;
+    const cv = makeCanvas('position:absolute;left:0;top:0;width:100%;height:100%;z-index:-1');
+    const ctx = cv.getContext('2d');
+    if (!ctx) return null;
+    sec.style.isolation = 'isolate'; // 畫布在首屏底色之上、所有內容（含照片與粉藕拱形）之下
+    sec.prepend(cv);
+
+    const MAXN = 600;
+    const BX = new Float32Array(MAXN), BY = new Float32Array(MAXN), NX = new Float32Array(MAXN), NY = new Float32Array(MAXN);
+    const SS = new Float32Array(MAXN), VA = new Float32Array(MAXN);
+    let N = 0, L = 0, W = 0, H = 0, dpr = 1, tier = 2, g = 10, top = 0, left = 0, start = -1, sp = [], notes = [];
+    const ripples = [];
+
+    function layout(force) {
+      const S = sec.getBoundingClientRect(), P = pic.getBoundingClientRect(), tr = tierOf();
+      if (!force && Math.round(S.width) === W && Math.abs(S.height - H) < 80 && tr === tier && N) { top = S.top + scrollY; return; }
+      W = Math.round(S.width); H = Math.round(S.height); tier = tr; dpr = dprOf(tier); g = C.gap[tier];
+      top = S.top + scrollY; left = S.left;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      sp = C.notes.map(c => sprites(c, dpr));
+
+      // 中線：拱形半徑＋離照片的距離＋兩個線距（五條線的正中間那條）
+      const r0 = P.width / 2, cx = P.left - S.left + r0, cy = P.top - S.top + r0;
+      const rm = r0 + C.offset[tier] + 2 * g, side = Math.max(0, (P.bottom - S.top - cy) * C.side[tier]);
+      L = side * 2 + Math.PI * rm;
+      N = Math.min(MAXN, Math.ceil(L / 7) + 1);
+      for (let i = 0; i < N; i++) {
+        const s = L * i / (N - 1);
+        let bx, by, nx, ny;
+        if (s < side) { bx = cx - rm; by = cy + side - s; nx = -1; ny = 0; }
+        else if (s < side + Math.PI * rm) { const a = Math.PI + (s - side) / rm; nx = Math.cos(a); ny = Math.sin(a); bx = cx + rm * nx; by = cy + rm * ny; }
+        else { bx = cx + rm; by = cy + (s - side - Math.PI * rm); nx = 1; ny = 0; }
+        BX[i] = bx; BY[i] = by; NX[i] = nx; NY[i] = ny; SS[i] = s;
+      }
+
+      // 碰到文字（與導覽列）就淡出：離得越近越淡，兩端也收尖
+      const rel = el => { const r = el.getBoundingClientRect(); return [r.left - S.left, r.top - S.top, r.right - S.left, r.bottom - S.top]; };
+      const avoid = C.avoid.map(q => document.querySelector(q)).filter(e => e && e.getClientRects().length).map(rel);
+      const dist = (x, y) => {
+        let m = 1e9;
+        for (const r of avoid) {
+          const dx = Math.max(r[0] - 14 - x, 0, x - r[2] - 14), dy = Math.max(r[1] - 14 - y, 0, y - r[3] - 14);
+          m = Math.min(m, Math.sqrt(dx * dx + dy * dy));
+        }
+        return m;
+      };
+      for (let i = 0; i < N; i++) {
+        let v = 1;
+        for (const k of [-2.6, 2.6]) v = Math.min(v, clamp(dist(BX[i] + NX[i] * k * g, BY[i] + NY[i] * k * g) / 30, 0, 1));
+        VA[i] = v * clamp(SS[i] / 50, 0, 1) * clamp((L - SS[i]) / 50, 0, 1);
+      }
+
+      // 音符：只放在完全看得到、也沒被照片／粉藕拱形／圓章蓋住的地方
+      const covers = C.covers.map(q => sec.querySelector(q)).filter(Boolean).map(rel);
+      const ok = [];
+      for (let i = 0; i < N; i++) {
+        if (VA[i] < 0.98) continue;
+        const x = BX[i], y = BY[i];
+        if (covers.some(r => x > r[0] - 10 && x < r[2] + 10 && y > r[1] - 10 && y < r[3] + 10)) continue;
+        ok.push(i);
+      }
+      const n = Math.min(ok.length, Math.round(C.count[tier] * (LOW ? 0.7 : 1)));
+      notes = [];
+      for (let j = 0; j < n; j++) {
+        const i = ok[Math.floor((j + rand(0.25, 0.75)) / n * ok.length)];
+        const type = TYPES[(Math.random() * TYPES.length) | 0];
+        const p = type === 'b' ? (Math.random() * 4) | 0 : ((Math.random() * 8) | 0) - 1;
+        notes.push({
+          i, p, type, down: (type === 'q' || type === 'h') && p >= 5, col: Math.random() < C.accent ? 1 : 0, sc: rand(0.95, 1.1),
+          fA: rand(C.float[0], C.float[1]), fW: rand(0.5, 0.9), fP: rand(0, TAU), rW: rand(0.2, 0.4), rP: rand(0, TAU),
+          tW: rand(0.4, 0.8), tP: rand(0, TAU), birth: 0, ox: 0, oy: 0, vx: 0, vy: 0, hx: -1e4, hy: -1e4,
+        });
+      }
+      notes.forEach((nt, j) => { nt.birth = Math.max(0.3 + j * C.noteGap, C.drawIn * ease(nt.i / N) * 0.9); });
+      if (force === 'static') frame(1e3, 0, scrollY, true);
+    }
+
+    if (!REDUCED) sec.addEventListener('pointerdown', e => {
+      if (e.target.closest && e.target.closest('a,button,summary,input,label')) return;
+      const R = sec.getBoundingClientRect(), x = e.clientX - R.left, y = e.clientY - R.top;
+      if (ripples.length > 2) ripples.shift();
+      ripples.push({ x, y, t: -1 });
+      for (const nt of notes) {
+        const dx = nt.hx - x, dy = nt.hy - y, d = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (d < C.ripple.radius) { const f = C.ripple.kick * (1 - d / C.ripple.radius); nt.vx += dx / d * f; nt.vy += dy / d * f; }
+      }
+    }, { passive: true });
+
+    function frame(t, dt, sy, still) {
+      if (start < 0) start = t;
+      const te = still ? 1e3 : t - start;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineWidth = 1; ctx.strokeStyle = `rgb(${C.line})`;
+      const end = Math.round(ease(clamp(te / C.drawIn, 0, 1)) * (N - 1));
+
+      // 五條線：同一段透明度的連續區間合併成一次 stroke
+      for (let k = -2; k <= 2; k++) {
+        let run = -1;
+        ctx.beginPath();
+        for (let i = 0; i <= end; i++) {
+          const w = Math.sin(SS[i] * 0.018 + t * 0.5 + k * 0.3) * 2.2, off = k * g + w;
+          const x = BX[i] + NX[i] * off, y = BY[i] + NY[i] * off;
+          const a = Math.round(VA[i] * 10) / 10;
+          if (a !== run) {
+            if (run > 0) { ctx.lineTo(x, y); ctx.globalAlpha = C.lineAlpha * run; ctx.stroke(); }
+            ctx.beginPath(); ctx.moveTo(x, y); run = a;
+          } else ctx.lineTo(x, y);
+        }
+        if (run > 0) { ctx.globalAlpha = C.lineAlpha * run; ctx.stroke(); }
+      }
+
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const r = ripples[i];
+        if (r.t < 0) r.t = t;
+        const p = (t - r.t) / 1.2;
+        if (p >= 1) { ripples.splice(i, 1); continue; }
+        for (const [d, m] of [[0, 1], [0.14, 0.62]]) {
+          const q = clamp((p - d) / (1 - d), 0, 1);
+          if (q <= 0) continue;
+          ctx.globalAlpha = 0.5 * (1 - q) * (1 - q);
+          ctx.beginPath(); ctx.arc(r.x, r.y, (10 + 74 * ease(q)) * m, 0, TAU); ctx.stroke();
+        }
+      }
+
+      const mx = M.x - left, my = M.y + sy - top, R2 = C.push.radius, K = 70, D = 10, dtt = still ? 0 : dt;
+      for (const nt of notes) {
+        const e0 = clamp((te - nt.birth) / 0.7, 0, 1);
+        if (e0 <= 0) { nt.hx = -1e4; continue; }
+        const i = nt.i, off = -2 * g + nt.p * g / 2 + Math.sin(t * nt.fW + nt.fP) * nt.fA;
+        const hx = BX[i] + NX[i] * off, hy = BY[i] + NY[i] * off;
+        nt.hx = hx; nt.hy = hy;
+        let tx = 0, ty = 0;
+        if (M.on && !LOW) {
+          const dx = hx - mx, dy = hy - my, d2 = dx * dx + dy * dy;
+          if (d2 < R2 * R2) { const d = Math.sqrt(d2) || 1, f = (1 - d / R2) * (1 - d / R2); tx = dx / d * C.push.dist * f; ty = dy / d * C.push.dist * f; }
+        }
+        nt.vx += ((tx - nt.ox) * K - nt.vx * D) * dtt; nt.ox += nt.vx * dtt;
+        nt.vy += ((ty - nt.oy) * K - nt.vy * D) * dtt; nt.oy += nt.vy * dtt;
+        const k = g / SG * nt.sc * (still ? 1 : backOut(e0));
+        if (k < 0.01) continue;
+        const a = C.noteAlpha * (0.8 + 0.2 * Math.sin(t * nt.tW + nt.tP)) * Math.min(1, e0 * 2.5);
+        const rot = Math.atan2(NY[i], NX[i]) + Math.PI / 2 + Math.sin(t * nt.rW + nt.rP) * 0.05 + (nt.down ? Math.PI : 0);
+        blit(ctx, sp[nt.col][nt.type], (hx + nt.ox) * dpr, (hy + nt.oy) * dpr, k, rot, a);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    return { sec, cv, layout, frame };
+  }
+
   // ───────── 定點譜線：固定在幾個區塊頂端的留白帶，從一側伸出、往中間淡掉；捲到那裡，音符從譜線上彈出來 ─────────
   function bgDark(el) {
     for (let e = el; e; e = e.parentElement) {
@@ -424,7 +662,11 @@
       if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
       sec.style.isolation = 'isolate'; // 讓 z-index:-1 的畫布留在這個區塊的底色之上、內容之下
       sec.prepend(cv);
-      items.push({ sec, cv, ctx, side, len, count, near, pal: bgDark(sec) ? C.dark : C.light, vis: false, drawn: -1, popT: -1, hopAt: 0, notes: [] });
+      // 換掉頁面上原本的靜態譜線（JS 沒跑時，原本那條還在，當作備援）
+      const old = near && near.hide && sec.querySelector(near.hide);
+      if (old) old.style.visibility = 'hidden';
+      const pal = near && near.pal ? C[near.pal] : bgDark(sec) ? C.dark : C.light;
+      items.push({ sec, cv, ctx, side, len, count, near, pal, vis: false, drawn: -1, popT: -1, hopAt: 0, notes: [] });
     }
     if (!items.length) return null;
     let tier = 2, dpr = 1;
@@ -435,14 +677,19 @@
       for (const it of items) {
         const W = it.sec.clientWidth, pad = parseFloat(getComputedStyle(it.sec).paddingTop) || 0;
         let mid = Math.max(pad / 2, 44), top = Math.max(0, mid - H / 2); // 譜線中心＝區塊頂端留白帶的正中間
-        let L = W * (tier === 2 ? C.lenMobile : it.len), left = it.side === 'left', a0, a1;
-        it.x0 = left ? -10 : W - L; it.x1 = left ? L : W + 10;
+        const full = it.side === 'full', gg = (it.near && it.near.gap) || g;
+        let L = full ? W + 20 : W * (tier === 2 ? C.lenMobile : it.len), left = it.side !== 'right', a0, a1;
+        it.x0 = left ? -10 : W - L; it.x1 = left ? L - 10 : W + 10;
+        if (full) { a0 = W * it.near.notesAt[0]; a1 = W * it.near.notesAt[1]; }
 
-        // 貼著某個元素放（例如形象照）：桌機從照片後面伸出、往右淡掉；堆疊版面改放在照片上方的空隙，從右側伸進來
+        // 貼著某個元素放。center：譜線中心對齊那個元素（例如名字卡原本那條靜態譜線）；
+        // 其他（形象照）：桌機從照片後面伸出、往右淡掉；堆疊版面改放在照片上方的空隙，從右側伸進來
         const el = it.near && it.sec.querySelector(it.near.el);
         if (el) {
           const S = it.sec.getBoundingClientRect(), P = el.getBoundingClientRect();
-          if (mq(C.stacked)) {
+          if (it.near.mode === 'center') {
+            mid = P.top - S.top + P.height * (it.near.at == null ? 0.5 : it.near.at);
+          } else if (mq(C.stacked)) {
             mid = P.top - S.top - it.near.above; left = false;
             it.x0 = W - L; it.x1 = W + 10;
           } else {
@@ -459,21 +706,25 @@
         it.sp = it.pal.notes.map(c => sprites(c, dpr));
 
         const gr = it.ctx.createLinearGradient(it.x0, 0, it.x1, 0), on = `rgba(${it.pal.line},1)`, off = `rgba(${it.pal.line},0)`;
-        if (left) { gr.addColorStop(0, on); gr.addColorStop(0.45, on); gr.addColorStop(1, off); }
+        if (full) { gr.addColorStop(0, off); gr.addColorStop(0.08, on); gr.addColorStop(0.92, on); gr.addColorStop(1, off); }
+        else if (left) { gr.addColorStop(0, on); gr.addColorStop(0.45, on); gr.addColorStop(1, off); }
         else { gr.addColorStop(0, off); gr.addColorStop(0.55, on); gr.addColorStop(1, on); }
         it.grad = gr;
+        it.g = gg;
 
-        const s = staff(it.cy, g, tier === 2);
-        s.A1 *= 0.45; s.A2 *= 0.6; s.tw *= 0.6; s.tilt = rand(-0.015, 0.015);
+        const s = staff(it.cy, gg, tier === 2), flat = it.near && it.near.flat;
+        s.A1 *= flat ? 0.12 : 0.45; s.A2 *= flat ? 0.2 : 0.6; s.tw *= flat ? 0.2 : 0.6; s.tilt = flat ? 0 : rand(-0.015, 0.015);
         it.s = s;
+        const pr = (it.near && it.near.pitch) || null; // 限定音高範圍（上方緊貼文字時，符桿不能伸太高）
 
         // 音符落在譜線比較濃的那一段；彈出順序由外側往中間
         const n = tier === 2 ? Math.min(it.count, C.notesMobile) : it.count;
         if (a0 == null) { a0 = left ? 28 : W - L * 0.6; a1 = left ? L * 0.6 : W - 28; }
         it.notes = [];
         for (let j = 0; j < n; j++) {
-          const type = TYPES[(Math.random() * TYPES.length) | 0];
-          const p = type === 'b' ? (Math.random() * 4) | 0 : ((Math.random() * 8) | 0) - 1;
+          let type = TYPES[(Math.random() * TYPES.length) | 0];
+          if (pr && type === 'b') type = 'e';
+          const p = pr ? pr[0] + ((Math.random() * (pr[1] - pr[0] + 1)) | 0) : type === 'b' ? (Math.random() * 4) | 0 : ((Math.random() * 8) | 0) - 1;
           it.notes.push({
             x: a0 + (a1 - a0) * (j + rand(0.25, 0.75)) / n, p, type, down: (type === 'q' || type === 'h') && p >= 5,
             col: Math.random() < C.accent ? 1 : 0, sc: rand(0.95, 1.12),
@@ -504,7 +755,7 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const rv = ease(clamp((t - it.drawn) / C.drawIn, 0, 1)), L = it.x1 - it.x0;
       const x0 = it.from === 'left' ? it.x0 : it.x1 - rv * L, x1 = it.from === 'left' ? it.x0 + rv * L : it.x1;
-      ctx.strokeStyle = it.grad; ctx.lineWidth = 1; ctx.globalAlpha = it.pal.lineAlpha;
+      ctx.strokeStyle = it.grad; ctx.lineWidth = it.pal.lineWidth || 1; ctx.globalAlpha = it.pal.lineAlpha;
       drawStaff(ctx, s, t, W, x1, 0, 18, x0);
       if (it.popT < 0) { ctx.globalAlpha = 1; return; }
 
@@ -543,45 +794,49 @@
 
   // ───────── 啟動：主要內容載入後、瀏覽器閒下來再開始，不拖慢首屏 ─────────
   function init() {
-    let hero = null, spots = null;
-    try { hero = T.hero && Hero(T.hero); } catch (e) { hero = null; }
+    // 首屏舞台：橫向穿梭（Hero）或沿拱形走（Arch）；?v= 切換時沒顯示的那個首屏會自己略過
+    let stages = [], spots = null;
+    for (const [make, conf] of [[Hero, T.hero], [Hero, T.heroB], [Arch, T.arch]]) {
+      try { const s = conf && make(conf); if (s) stages.push(s); } catch (e) { /* 建不起來就靜默略過 */ }
+    }
     try { spots = T.spots && Spots(T.spots); } catch (e) { spots = null; }
-    if (!hero && !spots) return;
+    if (!stages.length && !spots) return;
 
-    let heroOn = false, spotsOn = 0, raf = 0, last = 0, clock = 0;
+    let spotsOn = 0, raf = 0, last = 0, clock = 0;
     const fps = () => (tierOf() === 2 || LOW ? 30 : 60);
     const show = cv => requestAnimationFrame(() => { cv.style.opacity = 1; });
 
-    if (hero) { hero.layout(REDUCED ? 'static' : true); show(hero.cv); }
+    stages.forEach(s => { s.layout(REDUCED ? 'static' : true); show(s.cv); });
     if (spots) { spots.layout(); if (REDUCED) spots.still(); spots.items.forEach(it => show(it.cv)); }
 
     let rt = 0;
     const relayout = () => {
       clearTimeout(rt);
-      rt = setTimeout(() => { hero && hero.layout(REDUCED ? 'static' : false); if (spots) { spots.layout(); if (REDUCED) spots.still(); } }, 250);
+      rt = setTimeout(() => { stages.forEach(s => s.layout(REDUCED ? 'static' : false)); if (spots) { spots.layout(); if (REDUCED) spots.still(); } }, 250);
     };
     addEventListener('resize', relayout, { passive: true });
     addEventListener('orientationchange', relayout, { passive: true });
     if (REDUCED) return; // 減少動態效果：只留靜態畫面，淡入後不再動
 
+    const anyOn = () => spotsOn || stages.some(s => s.on);
     const loop = now => {
       raf = 0;
       if (now - last < 1000 / fps() - 2) { schedule(); return; }
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now; clock += dt;
       try {
-        if (hero && heroOn) hero.frame(clock, dt, scrollY);
+        for (const s of stages) if (s.on) s.frame(clock, dt, scrollY);
         if (spots && spotsOn) spots.frame(clock, dt);
       } catch (e) { stop(); return; }
       schedule();
     };
-    const schedule = () => { if (!raf && !document.hidden && (heroOn || spotsOn)) raf = requestAnimationFrame(loop); };
+    const schedule = () => { if (!raf && !document.hidden && anyOn()) raf = requestAnimationFrame(loop); };
     const stop = () => {
       if (raf) cancelAnimationFrame(raf);
-      raf = 0; hero && hero.cv.remove(); spots && spots.items.forEach(it => it.cv.remove()); hero = spots = null;
+      raf = 0; stages.forEach(s => s.cv.remove()); spots && spots.items.forEach(it => it.cv.remove()); stages = []; spots = null;
     };
 
-    if (hero) new IntersectionObserver(([e]) => { heroOn = e.isIntersecting; schedule(); }).observe(hero.sec);
+    stages.forEach(s => new IntersectionObserver(([e]) => { s.on = e.isIntersecting; schedule(); }).observe(s.sec));
     if (spots) {
       const io = new IntersectionObserver(es => {
         es.forEach(e => { const it = spots && spots.items.find(i => i.cv === e.target); if (it) spots.setVis(it, e.isIntersecting ? e.intersectionRatio : 0, clock); });
